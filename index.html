@@ -270,6 +270,17 @@
   .person b { color: var(--ink); font-size: 15px; }
   .answer { min-width: 76px; padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 15px; background: var(--coral); color: #fff; transition: transform .4s var(--bounce), background .3s, color .3s; }
   .answer.wait { background: var(--line); color: var(--muted); transform: scale(.9); }
+  .person small { display: block; max-width: 140px; min-height: 2.6em; margin-top: -6px; color: var(--muted); font-size: 13px; line-height: 1.3; }
+  .av-wrap { position: relative; display: block; }
+  .av-wrap > .av { display: block; }
+  .cand { transition: transform .45s var(--bounce), opacity .3s; }
+  .cand.out { transform: translateX(70px) rotate(20deg); opacity: 0; transition: transform .45s var(--ease), opacity .35s; }
+  .cand.enter { transform: translateX(-24px) scale(.8); opacity: 0; transition: none; }
+  .cand .av { display: grid; place-items: center; overflow: hidden; background: var(--coral-soft); font-size: 36px; line-height: 1; }
+  .cand .av svg { width: 100%; height: 100%; display: block; }
+  .xstamp { position: absolute; right: -8px; top: -6px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #e0393e; color: #fff; font-weight: 800; font-size: 17px; box-shadow: 0 0 0 4px var(--surface); scale: 0; transition: scale .3s var(--bounce); }
+  .cand.nope .xstamp { scale: 1; }
+  .cand.nope .av { filter: grayscale(1); opacity: .6; transition: filter .3s, opacity .3s; }
   .link { position: relative; width: clamp(60px, 14vw, 110px); height: 40px; display: grid; place-items: center; }
   .link::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 3px dotted var(--violet-2); opacity: .5; }
   .heart { position: relative; width: 40px; height: 40px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; transition: transform .5s var(--bounce), opacity .3s; }
@@ -387,6 +398,33 @@
       <circle cx="66" cy="114" r="3.5" fill="#1f9a8a"/>
       <circle cx="134" cy="114" r="3.5" fill="#1f9a8a"/>
     </symbol>
+    <symbol id="noah" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="noahBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4efe9"/><stop offset="1" stop-color="#e6dcff"/></linearGradient>
+        <radialGradient id="noahSkin" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#d9a07a"/><stop offset="1" stop-color="#b9805d"/></radialGradient>
+      </defs>
+      <rect width="200" height="200" fill="url(#noahBg)"/>
+      <circle cx="40" cy="44" r="40" fill="#fff" opacity=".35"/>
+      <path d="M18 200 C 26 166, 60 152, 100 152 C 140 152, 174 166, 182 200 Z" fill="#1f9a8a"/>
+      <path d="M80 160 Q 100 176 120 160 L 116 154 Q 100 162 84 154 Z" fill="#17786b"/>
+      <path d="M87 128 L 113 128 L 115 160 Q 100 170 85 160 Z" fill="#b07656"/>
+      <ellipse cx="66" cy="104" rx="7" ry="10" fill="#c48a66"/>
+      <ellipse cx="134" cy="104" rx="7" ry="10" fill="#c48a66"/>
+      <ellipse cx="100" cy="100" rx="34" ry="41" fill="url(#noahSkin)"/>
+      <path d="M70 118 C 74 140, 88 142, 100 142 C 112 142, 126 140, 130 118 C 124 128, 112 132, 100 132 C 88 132, 76 128, 70 118 Z" fill="#3a2418" opacity=".22"/>
+      <g fill="#2b1d16">
+        <circle cx="72" cy="74" r="13"/><circle cx="84" cy="61" r="14"/><circle cx="100" cy="56" r="15"/>
+        <circle cx="116" cy="60" r="14"/><circle cx="129" cy="72" r="12"/><circle cx="66" cy="88" r="8"/><circle cx="134" cy="87" r="8"/>
+        <circle cx="92" cy="70" r="10"/><circle cx="110" cy="70" r="10"/>
+      </g>
+      <path d="M76 94 Q 84 89 92 93" stroke="#2b1d16" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+      <path d="M108 93 Q 116 89 124 94" stroke="#2b1d16" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+      <path d="M78 104 Q 85 99 92 104" stroke="#20130e" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M108 104 Q 115 99 122 104" stroke="#20130e" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M100 106 Q 96 116 101 119" stroke="#9c6446" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M87 125 Q 100 139 113 125 Q 100 130 87 125 Z" fill="#7a2e28"/>
+      <path d="M90 126 Q 100 131 110 126 L 109 128.5 Q 100 132 91 128.5 Z" fill="#fff"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -503,14 +541,14 @@
           <div class="copy">
             <p class="who"><em>2</em>on us</p>
             <h3>Ninty sends someone your way.</h3>
-            <p>Every now and then he'll slide in with "ok don't freak out but look who's around". Someone nearby who could be good for you. You say yes or nah. If you both say yes, it's on.</p>
+            <p>Every now and then he'll slide in with "ok don't freak out but look who's around". Someone nearby who could be good for you. He also filters out the obvious no's before you ever see them. You say yes or nah. If you both say yes, it's on.</p>
             <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>nobody scrolls through you. i'm very picky about who sees you</span></div>
           </div>
-          <div class="yes-scene" id="yesScene" role="img" aria-label="You say yes, Lea says yes, and Ninty celebrates.">
+          <div class="yes-scene" id="yesScene" role="img" aria-label="Ninty suggests people one after another. Joke matches like your ex or the pigeon from your balcony get rejected on the spot. Then a real match, like Lea or Noah, says yes and Ninty celebrates.">
             <div class="pair" aria-hidden="true">
-              <div class="person"><span class="av av-you"></span><b>you</b><span class="answer" id="ansA">yes!</span></div>
+              <div class="person"><span class="av-wrap"><span class="av av-you"></span></span><b>you</b><small>&nbsp;</small><span class="answer" id="ansA">yes!</span></div>
               <div class="link"><span class="heart" id="heart"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg></span></div>
-              <div class="person"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span><b>Lea</b><span class="answer" id="ansB">yes!</span></div>
+              <div class="person cand" id="cand"><span class="av-wrap"><span class="av av-lea" id="candAv"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span><span class="xstamp">✕</span></span><b id="candName">Lea</b><small id="candSub">sunday market person</small><span class="answer" id="ansB">yes!</span></div>
             </div>
             <div class="nini-react" id="react" aria-hidden="true"><span class="av av-nini" data-mood="love"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>SHE SAID YES. i'm screaming. go 🔓</span></div>
           </div>
@@ -834,22 +872,60 @@
     { sys: 'Ninty left the chat to give you privacy 😌', pause: 900 }
   ]);
 
-  // both say yes
+  // step 2: Ninty pitches people. joke matches get rejected on the spot, then a real one
   const ys = document.getElementById('yesScene');
   const a = document.getElementById('ansA'), b = document.getElementById('ansB'), heart = document.getElementById('heart'), react = document.getElementById('react');
+  const cand = document.getElementById('cand'), candAv = document.getElementById('candAv'), candName = document.getElementById('candName'), candSub = document.getElementById('candSub');
+  const reactAv = react.querySelector('.av-nini'), reactTxt = react.lastElementChild;
+  const JOKES = [
+    { emoji: '🚩', name: 'Max', sub: 'your ex. yes, that one', say: "absolutely not. we don't go backwards", mood: 'angry' },
+    { emoji: '🐦', name: 'Gérard', sub: 'the pigeon on your balcony', say: "he's been watching you for months. NO", mood: 'shock' },
+    { emoji: '🐟', name: 'Kevin', sub: '6 photos, 6 fish', say: "that's a fishing licence, not a personality", mood: 'judge' },
+    { emoji: '💼', name: 'your boss', sub: '200 m away, sadly', say: 'nope nope nope. we are NOT doing this', mood: 'shock' },
+    { emoji: '🪞', name: 'you', sub: 'from 2019', say: "love the confidence but that's illegal", mood: 'smirk' }
+  ];
+  const REAL = [
+    { svg: 'lea', name: 'Lea', sub: 'sunday market person', say: "SHE SAID YES. i'm screaming. go 🔓" },
+    { svg: 'noah', name: 'Noah', sub: 'makes playlists for strangers', say: 'HE SAID YES. i need to sit down 🔓' }
+  ];
+  const showCand = async c => {
+    cand.classList.remove('out', 'nope'); cand.classList.add('enter');
+    candAv.innerHTML = c.svg ? `<svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#${c.svg}"/></svg>` : c.emoji;
+    candName.textContent = c.name; candSub.textContent = c.sub;
+    b.classList.add('wait'); b.textContent = '…';
+    void cand.offsetWidth; cand.classList.remove('enter');
+    await sleep(500);
+  };
+  const leave = async () => { cand.classList.add('out'); react.classList.add('off'); await sleep(450); };
   watch(ys);
   (async () => {
-    for (;;) {
+    for (let r = 0; ; r++) {
       await gate(ys);
-      [a, b].forEach(x => { x.classList.add('wait'); x.textContent = '…'; });
-      heart.classList.add('off'); react.classList.add('off'); setMood(react.querySelector('.av-nini'), 'judge');
-      await sleep(1200); await gate(ys);
+      const joke = JOKES[r % JOKES.length], real = REAL[r % REAL.length];
+      a.classList.add('wait'); a.textContent = '…';
+      heart.classList.add('off'); react.classList.add('off');
+
+      // the joke match, killed instantly
+      await showCand(joke);
+      await sleep(700); await gate(ys);
+      cand.classList.add('nope');
+      reactTxt.textContent = joke.say; react.classList.remove('off'); setMood(reactAv, joke.mood);
+      await sleep(2300); await gate(ys);
+      await leave();
+
+      // the real one
+      setMood(reactAv, 'happy');
+      await showCand(real);
+      await sleep(900); await gate(ys);
       a.classList.remove('wait'); a.textContent = 'yes!';
-      await sleep(1100); await gate(ys);
+      await sleep(1000); await gate(ys);
       b.classList.remove('wait'); b.textContent = 'yes!';
-      await sleep(500); heart.classList.remove('off');
-      await sleep(450); react.classList.remove('off'); await sleep(250); setMood(react.querySelector('.av-nini'), 'love');
-      await sleep(3400);
+      await sleep(450); heart.classList.remove('off');
+      await sleep(400); reactTxt.textContent = real.say; react.classList.remove('off');
+      await sleep(250); setMood(reactAv, 'love');
+      await sleep(3200); await gate(ys);
+      heart.classList.add('off');
+      await leave();
     }
   })();
 
