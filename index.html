@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ninetynine — we do 99%, you do the last 1%</title>
-  <meta name="description" content="Dating apps turned meeting people into a second job. ninetynine does the swiping, the small talk and the searching for you. You just talk to us, be yourself, and show up to meet someone real.">
+  <meta name="description" content="Dating apps turned finding someone into a second job. ninetynine does the swiping, the small talk and the searching for you. You talk, you stay yourself, and you go find the person who's looking for someone like you. In real life.">
   <meta name="theme-color" content="#fbfaf8">
   <link rel="canonical" href="https://ninetynine.love/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ninetynine.love/">
   <meta property="og:title" content="ninetynine — we do 99%, you do the last 1%">
-  <meta property="og:description" content="No swiping. No small talk. No selling yourself. We do the 99%. You just show up.">
+  <meta property="og:description" content="Put the phone down. Go meet someone. No swiping, no small talk, no profile to sell. We do the 99%. You go find them.">
   <meta property="og:image" content="https://ninetynine.love/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -26,14 +26,14 @@
     "name": "ninetynine",
     "url": "https://ninetynine.love/",
     "applicationCategory": "SocialNetworkingApplication",
-    "description": "ninetynine is a dating app without swiping. The user talks with an AI assistant about who they are and who they want to meet. From the conversation, ninetynine builds a profile in two parts: who the user is, and who the user is looking for. It matches people by fit, not by similarity: what one person is looking for must match who the other person is. When both people accept and are physically near each other, the chat opens so that they meet in real life instead of texting.",
+    "description": "ninetynine is a dating app without swiping. We do 99% of the work of dating; the user does the last 1%: they go and find the person in real life. The user chats with a friendly AI companion about their life; from that conversation ninetynine learns who the user is and who they are looking for. It matches people by fit, not by similarity: the user only has to be themselves, and ninetynine finds the person who is looking for exactly that. When both people say yes, there is no chat first: each sees a rough area where the other is, the area shrinks as they walk toward each other, and they meet in person.",
     "featureList": [
-      "A conversation replaces the profile form and the swipe",
+      "A conversation with an AI companion replaces the profile form, the bio and the swipe",
       "Each profile has two parts: who you are, and who you are looking for",
-      "Matches by fit: what you look for is who they are, not people who are alike",
-      "A personal introduction for each match",
-      "The chat opens when both people accept and are near each other",
-      "The exact location of a user is never shown to other users"
+      "Matching by fit: you only need to be yourself; we find the person looking for that",
+      "Every match is a yes from both people",
+      "No chat before meeting: a rough area that shrinks as the two people walk toward each other",
+      "Nobody ever sees the exact location of another user"
     ],
     "offers": {
       "@type": "Offer",
@@ -54,15 +54,14 @@
       --surface: #ffffff;
       --ink: #17131f;
       --body: #4a4556;
-      --muted: #807a8c;
+      --muted: #847e90;
       --line: #ebe7f0;
       --violet: #5b3fa8;
-      --violet-soft: #efeafa;
+      --violet-2: #8a72d1;
+      --violet-soft: #f0ebfb;
       --amber: #e39b2d;
       --teal: #1f9a8a;
       --coral: #e2674f;
-      --blue: #3d7be0;
-      --radius: 22px;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
@@ -80,14 +79,29 @@
       overflow-x: hidden;
     }
 
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+    a { color: inherit; }
+
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
     @media (min-width: 720px) { .wrap { padding: 0 32px; } }
 
     h1, h2, h3, .display {
       font-family: "Inter Tight", "Inter", system-ui, sans-serif;
       color: var(--ink);
-      letter-spacing: -0.03em;
       font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .eyebrow {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(34px, 5.2vw, 56px);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      max-width: 15ch;
     }
 
     /* Nav */
@@ -96,68 +110,87 @@
       padding-top: 22px; padding-bottom: 22px;
     }
     .brand {
-      display: flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: center; gap: 10px;
       color: var(--ink); text-decoration: none;
       font-weight: 500; letter-spacing: -0.01em;
     }
     .brand img { width: 32px; height: 32px; border-radius: 9px; }
     .soon {
+      display: inline-flex; align-items: center; gap: 8px;
       font-size: 13px; font-weight: 500;
-      padding: 6px 14px;
+      padding: 6px 14px 6px 12px;
       border-radius: 999px;
       background: var(--violet-soft);
       color: var(--violet);
+    }
+    .soon::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--amber);
     }
 
     /* Hero */
     .hero {
       position: relative;
-      padding-top: clamp(48px, 10vh, 112px);
-      padding-bottom: 88px;
+      padding-top: clamp(48px, 9vh, 104px);
+      padding-bottom: 112px;
       text-align: center;
     }
     .hero::before {
       content: "";
       position: absolute; z-index: -1;
-      left: 50%; top: -120px;
-      width: min(1100px, 140vw); height: 640px;
+      left: 50%; top: -140px;
+      width: min(1100px, 140vw); height: 700px;
       transform: translateX(-50%);
       background:
-        radial-gradient(closest-side at 35% 45%, rgba(91, 63, 168, 0.10), transparent),
-        radial-gradient(closest-side at 68% 55%, rgba(227, 155, 45, 0.10), transparent);
+        radial-gradient(closest-side at 36% 45%, rgba(91, 63, 168, 0.11), transparent),
+        radial-gradient(closest-side at 66% 55%, rgba(227, 155, 45, 0.11), transparent);
       pointer-events: none;
     }
     h1 {
-      font-size: clamp(44px, 8.4vw, 96px);
-      line-height: 1;
-      letter-spacing: -0.045em;
+      font-size: clamp(46px, 8.6vw, 100px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
       margin-bottom: 28px;
     }
     h1 .one { color: var(--violet); }
     .lede {
-      max-width: 34em;
-      margin: 0 auto 64px;
+      max-width: 30em;
+      margin: 0 auto 28px;
       font-size: clamp(17px, 2.1vw, 20px);
-      color: var(--body);
     }
 
-    /* 99% bar */
+    /* What you skip: struck-through chips */
+    .nope {
+      list-style: none;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      margin: 0 auto 72px;
+      max-width: 640px;
+    }
+    .nope li {
+      position: relative;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 14px; font-weight: 500;
+      color: var(--muted);
+    }
+    .nope li::after {
+      content: "";
+      position: absolute; left: 10px; right: 10px; top: 50%;
+      height: 2px;
+      background: var(--coral);
+    }
+
+    /* The 99% bar. It is static at 99%; only the shimmer and the beacon loop. */
     .bar { max-width: 860px; margin: 0 auto; text-align: left; }
     .bar-head {
-      display: flex; justify-content: space-between; align-items: baseline;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
       margin-bottom: 14px;
-    }
-    .bar-count {
-      font-family: "Inter Tight", sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--violet);
-      font-variant-numeric: tabular-nums;
-    }
-    .bar-you {
       font-size: 15px; font-weight: 500;
-      color: var(--ink);
     }
+    .bar-head .us { color: var(--violet); font-family: "Inter Tight", sans-serif; font-weight: 600; }
+    .bar-head .you { color: var(--ink); }
     .track {
       position: relative;
       height: 14px;
@@ -165,29 +198,35 @@
       background: var(--line);
     }
     .fill {
-      position: absolute; left: 0; top: 0; bottom: 0;
-      width: 99%;
+      position: absolute; inset: 0 1% 0 0;
       border-radius: 999px 0 0 999px;
-      background: linear-gradient(90deg, #8a72d1, var(--violet));
+      background: linear-gradient(90deg, var(--violet-2), var(--violet));
+      overflow: hidden;
     }
-    .fill.go { transition: width 2.4s var(--ease); }
-    .you-dot {
+    .fill::after {
+      content: "";
+      position: absolute; top: 0; bottom: 0; left: -30%;
+      width: 30%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      animation: shimmer 3.2s var(--ease) infinite;
+    }
+    @keyframes shimmer { to { left: 110%; } }
+    .beacon {
       position: absolute; right: -4px; top: 50%;
       width: 22px; height: 22px;
       transform: translateY(-50%);
       border-radius: 50%;
       background: var(--amber);
       border: 4px solid var(--bg);
-      box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.5);
       animation: beacon 2.2s ease-out infinite;
     }
     @keyframes beacon {
-      0% { box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.45); }
+      0% { box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.5); }
       100% { box-shadow: 0 0 0 16px rgba(227, 155, 45, 0); }
     }
     .stages {
       list-style: none;
-      display: flex; justify-content: space-between;
+      display: flex; justify-content: space-between; gap: 12px;
       margin-top: 16px;
       font-size: 14px;
       color: var(--muted);
@@ -198,207 +237,233 @@
     }
 
     /* Sections */
-    section { padding: 88px 0; border-top: 1px solid var(--line); }
-    .eyebrow {
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--violet);
-      margin-bottom: 14px;
-    }
-    h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      max-width: 16ch;
-      margin-bottom: 20px;
-    }
-    .intro { max-width: 38em; font-size: 18px; margin-bottom: 48px; }
-    .intro + .intro { margin-top: -32px; }
+    section { padding: 96px 0; border-top: 1px solid var(--line); }
 
-    .cards {
-      display: grid; gap: 14px;
+    /* How it works: three steps, each with its visual */
+    .steps { margin-top: 56px; }
+    .step {
+      display: grid; gap: 28px; align-items: center;
       grid-template-columns: 1fr;
+      padding: 48px 0;
+      border-top: 1px solid var(--line);
     }
-    @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 980px) { .cards.four { grid-template-columns: repeat(4, 1fr); } .cards.three { grid-template-columns: repeat(3, 1fr); } }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-    }
-    .card h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .card p { font-size: 16px; }
-    .no h3 { position: relative; display: inline-block; }
-    .no h3::after {
-      content: "";
-      position: absolute; left: -2px; right: -2px; top: 54%;
-      height: 2px;
-      background: var(--coral);
-      transform-origin: left;
-    }
+    @media (min-width: 900px) { .step { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; padding: 56px 0; } }
     .step-n {
       display: inline-grid; place-items: center;
-      width: 34px; height: 34px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       background: var(--violet-soft);
       color: var(--violet);
       font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 15px;
     }
-    .card.you-step { background: var(--ink); border-color: var(--ink); }
-    .card.you-step h3 { color: #fff; }
-    .card.you-step p { color: rgba(255, 255, 255, 0.72); }
-    .card.you-step .step-n { background: var(--amber); color: var(--ink); }
+    .step h3 { font-size: clamp(26px, 3.4vw, 36px); line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 14px; }
+    .who-does {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .step.yours .step-n { background: var(--amber); color: var(--ink); }
+    .step.yours .who-does { color: var(--amber); }
 
-    /* Shapes used by both diagrams. Filled = who someone is. Dashed outline = who someone is looking for. */
-    .shape { width: 30px; height: 30px; flex: none; display: block; }
-    .shape.sm { width: 22px; height: 22px; }
+    .visual {
+      border-radius: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    /* Shapes: filled = who someone is, dashed outline = who someone is looking for */
+    .shape { width: 26px; height: 26px; flex: none; display: block; }
+    .shape.sm { width: 20px; height: 20px; }
     .shape .is { stroke: none; }
     .shape .wants { fill: none; stroke-width: 2.4; stroke-dasharray: 4 3.2; }
     .c-violet { color: var(--violet); }
     .c-amber { color: var(--amber); }
     .c-teal { color: var(--teal); }
     .c-coral { color: var(--coral); }
-    .c-blue { color: var(--blue); }
 
     .legend {
-      display: flex; flex-wrap: wrap; gap: 10px 24px;
-      margin-bottom: 20px;
-      font-size: 14px; color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 8px 20px;
+      margin-bottom: 18px;
+      font-size: 13px; color: var(--muted);
     }
     .legend span { display: inline-flex; align-items: center; gap: 8px; }
 
-    .diagram {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: clamp(20px, 4vw, 44px);
-    }
-
-    /* Diagram 1: conversation to profile */
-    .talk {
-      display: grid; gap: 28px; align-items: center;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 860px) { .talk { grid-template-columns: 1.15fr auto 1fr; gap: 36px; } }
-    .bubbles { display: flex; flex-direction: column; gap: 12px; }
+    /* Step 1 visual: a chat with a buddy becomes a profile */
+    .talk { display: grid; gap: 18px; grid-template-columns: 1fr; align-items: center; }
+    @media (min-width: 560px) { .talk { grid-template-columns: minmax(0, 1.7fr) auto minmax(0, 1fr); } }
+    .bubbles { display: flex; flex-direction: column; gap: 8px; }
     .bubble {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      max-width: 440px;
-      padding: 12px 14px 12px 18px;
-      border-radius: 20px 20px 20px 6px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      max-width: 88%;
+      padding: 9px 12px 9px 14px;
+      border-radius: 18px;
+      font-size: 15px; line-height: 1.35;
+    }
+    .bubble.them {
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
       background: var(--bg);
       border: 1px solid var(--line);
+      color: var(--body);
+    }
+    .bubble.me {
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+      background: var(--violet-soft);
       color: var(--ink);
-      font-size: 16px;
-      line-height: 1.4;
     }
-    .bubble:nth-child(even) { margin-left: 28px; }
-    .flow {
-      display: grid; place-items: center;
-      color: var(--muted);
-    }
-    .flow svg { width: 56px; height: 24px; }
-    @media (max-width: 859px) { .flow svg { transform: rotate(90deg); } }
-    .flow-line { stroke-dasharray: 5 5; animation: flow 1.2s linear infinite; }
+    .arrow { display: grid; place-items: center; color: var(--muted); }
+    .arrow svg { width: 44px; height: 20px; }
+    @media (max-width: 559px) { .arrow svg { transform: rotate(90deg); } }
+    .dash-flow { stroke-dasharray: 5 5; animation: flow 1.2s linear infinite; }
     @keyframes flow { to { stroke-dashoffset: -10; } }
-
     .profile {
-      border-radius: 22px;
+      border-radius: 18px;
+      background: var(--bg);
       border: 1px solid var(--line);
-      padding: 22px;
-      background: linear-gradient(180deg, #ffffff, #faf8fd);
+      padding: 18px;
     }
-    .profile-title {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 500; color: var(--ink);
-      margin-bottom: 18px;
-    }
+    .profile-title { display: flex; align-items: center; gap: 10px; font-weight: 500; color: var(--ink); font-size: 15px; margin-bottom: 14px; }
     .avatar {
-      width: 30px; height: 30px; border-radius: 50%;
+      width: 26px; height: 26px; border-radius: 50%; flex: none;
       background: conic-gradient(from 200deg, var(--violet), var(--amber), var(--teal), var(--violet));
     }
-    .row-label { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
-    .row { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+    .avatar.b { background: conic-gradient(from 20deg, var(--coral), var(--violet-2), var(--amber), var(--coral)); }
+    .row-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .row { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
     .row:last-child { margin-bottom: 0; }
-    .ghost { opacity: 0.18; }
 
-    /* Diagram 2: alike vs fit */
-    .compare {
-      display: grid; gap: 14px;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 860px) { .compare { grid-template-columns: 1fr 1.25fr; } }
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 28px 24px;
-      background: var(--surface);
-    }
-    .panel.dim { background: transparent; }
-    .panel h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .panel .tag {
-      font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-      margin-bottom: 22px; color: var(--muted);
-    }
-    .panel.fit .tag { color: var(--violet); }
-    .pair {
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
-      margin-bottom: 24px;
-    }
+    /* Step 2 visual: alike vs fit */
+    .match-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; }
     .who {
-      border-radius: 18px;
+      border-radius: 14px;
       border: 1px solid var(--line);
       background: var(--bg);
-      padding: 14px;
+      padding: 10px 12px;
       min-width: 0;
     }
-    .who-name { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-    .who .row { margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
-    .who .row:last-child { margin-bottom: 0; }
-    .link {
-      display: grid; place-items: center;
-      font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 22px;
-      color: var(--muted);
-    }
-    .panel.fit .link { color: var(--violet); }
-    .link svg { width: 46px; height: 46px; }
-    .panel p { font-size: 16px; }
-    .panel.fit .who { background: var(--violet-soft); border-color: transparent; }
-
+    .who-name { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .who .row { margin: 0; }
+    .op { font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 20px; color: var(--muted); text-align: center; }
+    .op svg { width: 40px; height: 20px; display: block; }
+    .match-caption { margin-top: 10px; font-size: 14px; color: var(--muted); }
+    .match-caption b { color: var(--ink); font-weight: 500; }
+    .versus { margin: 18px 0; border-top: 1px dashed var(--line); }
+    .alike { opacity: 0.72; }
+    .fit .who { background: var(--violet-soft); border-color: transparent; }
+    .fit .op { color: var(--violet); }
+    .fit .match-caption b { color: var(--violet); }
     .quote {
-      margin-top: 48px;
-      max-width: 22ch;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.12;
-      letter-spacing: -0.035em;
+      margin-top: 22px;
+      font-family: "Inter Tight", sans-serif; font-weight: 600;
+      font-size: clamp(19px, 2.2vw, 22px);
+      line-height: 1.25; letter-spacing: -0.02em;
+      color: var(--ink);
     }
     .quote span { color: var(--violet); }
+
+    /* Step 3 visual: the area shrinks as you walk toward them */
+    .search {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 34px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 34px),
+        var(--ink);
+      padding: 24px 20px 20px;
+    }
+    .field {
+      position: relative;
+      width: min(100%, 300px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    .ring {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1.5px solid rgba(227, 155, 45, 0.35);
+      background: rgba(227, 155, 45, 0.05);
+    }
+    .ring.r1 { width: 100%; height: 100%; }
+    .ring.r2 { width: 62%; height: 62%; border-color: rgba(227, 155, 45, 0.55); background: rgba(227, 155, 45, 0.07); }
+    .ring.r3 {
+      width: 28%; height: 28%;
+      border-color: var(--amber);
+      background: rgba(227, 155, 45, 0.14);
+      animation: breathe 2.4s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.35); }
+      50% { box-shadow: 0 0 0 12px rgba(227, 155, 45, 0); }
+    }
+    .ring-label {
+      position: absolute; left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.55);
+      background: var(--ink);
+      padding: 0 6px;
+    }
+    .ring-label.l1 { top: -7px; }
+    .ring-label.l2 { top: 19%; margin-top: -7px; }
+    .person {
+      position: absolute;
+      display: grid; justify-items: center; gap: 6px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 12px; font-weight: 500;
+    }
+    .person .avatar { width: 40px; height: 40px; box-shadow: 0 0 0 3px var(--ink); }
+    .person.them { left: 50%; top: 50%; transform: translate(-50%, -58%); }
+    .person.you { left: 6%; top: 70%; }
+    .path { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .path line {
+      stroke: var(--amber); stroke-width: 2; stroke-linecap: round;
+      stroke-dasharray: 5 6;
+      animation: flow 1s linear infinite;
+    }
+    .shrink {
+      list-style: none;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 20px;
+      font-size: 13px; font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .shrink li { display: inline-flex; align-items: center; gap: 10px; }
+    .shrink li + li::before { content: "→"; color: rgba(255, 255, 255, 0.3); }
+    .shrink li:last-child { color: var(--amber); }
 
     /* Real life */
     .real { background: var(--ink); border-top: none; }
     .real .eyebrow { color: var(--amber); }
-    .real h2 { color: #fff; }
-    .real .intro { color: rgba(255, 255, 255, 0.72); margin-bottom: 40px; }
-    .big {
-      font-size: clamp(44px, 8vw, 96px);
-      line-height: 1;
-      letter-spacing: -0.045em;
+    .real h2 { color: #fff; margin-bottom: 20px; }
+    .real .lead { max-width: 36em; font-size: 18px; color: rgba(255, 255, 255, 0.74); margin-bottom: 48px; }
+    .real .big {
+      max-width: 12ch;
+      font-size: clamp(48px, 9vw, 108px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
       color: #fff;
+      margin: 0;
     }
-    .big span { color: var(--amber); }
+    .real .big span { color: var(--amber); }
     .real + section { border-top: none; }
 
     /* Questions */
-    .faq { max-width: 760px; }
+    .faq { max-width: 760px; margin-top: 40px; }
     .faq div { padding: 24px 0; border-bottom: 1px solid var(--line); }
     .faq div:first-child { border-top: 1px solid var(--line); }
     .faq dt { font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 19px; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 6px; }
 
     /* Closing */
     .closing { text-align: center; }
-    .closing h2 { margin: 0 auto 16px; max-width: 18ch; }
+    .closing h2 { margin: 0 auto 16px; max-width: 16ch; }
+    .closing h2 span { color: var(--violet); }
     .closing p { margin: 0 auto; max-width: 30em; font-size: 18px; }
 
     footer {
@@ -409,7 +474,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
+      *, *::before, *::after { animation: none !important; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -421,7 +486,6 @@
       <g id="square"><rect x="5" y="5" width="22" height="22" rx="5" /></g>
       <g id="triangle"><path d="M16 4.5 L28 26.5 H4 Z" stroke-linejoin="round" /></g>
       <g id="star"><path d="M16 3.5 L19.6 11.6 L28.4 12.4 L21.7 18.2 L23.7 26.8 L16 22.3 L8.3 26.8 L10.3 18.2 L3.6 12.4 L12.4 11.6 Z" stroke-linejoin="round" /></g>
-      <g id="diamond"><path d="M16 3 L29 16 L16 29 L3 16 Z" stroke-linejoin="round" /></g>
     </defs>
   </svg>
 
@@ -433,49 +497,163 @@
 
     <header class="hero" id="top">
       <h1>We do 99%.<br>You do <span class="one">the last 1%.</span></h1>
-      <p class="lede">Dating apps turned meeting someone into a second job: swiping, small talk, waiting, ghosting. We take all of that off your hands. You talk to us, you stay yourself, and you show up. In real life.</p>
+      <p class="lede">Dating apps turned finding someone into a second job. We take the whole job off your hands. You talk, you stay yourself, and you go find them. In real life.</p>
+      <ul class="nope" aria-label="What you skip with ninetynine">
+        <li>Swiping</li>
+        <li>Small talk</li>
+        <li>A profile to sell</li>
+        <li>Being judged</li>
+        <li>Texting for weeks</li>
+      </ul>
 
-      <div class="bar" role="img" aria-label="A progress bar at 99 percent. ninetynine does the searching, the sorting and the introduction. The last 1 percent is yours: you show up and meet the person.">
+      <div class="bar" role="img" aria-label="A bar filled to 99 percent: ninetynine does the talking, the searching and the matching. The last 1 percent is yours: you go and find the person.">
         <div class="bar-head">
-          <span class="bar-count"><span id="count">99</span>% done by us</span>
-          <span class="bar-you">1% · you show up</span>
+          <span class="us">99% · us</span>
+          <span class="you">1% · you</span>
         </div>
         <div class="track">
-          <div class="fill" id="fill"></div>
-          <span class="you-dot"></span>
+          <div class="fill"></div>
+          <span class="beacon"></span>
         </div>
         <ol class="stages">
           <li>You talk</li>
           <li>We get you</li>
           <li>We search</li>
-          <li>We find the one who fits</li>
-          <li>You show up</li>
+          <li>We find your fit</li>
+          <li>You go find them</li>
         </ol>
       </div>
     </header>
   </div>
 
   <main>
-    <section id="without">
+    <section id="how">
       <div class="wrap">
-        <p class="eyebrow">What we take off your hands</p>
-        <h2>We do the boring part. All of it.</h2>
-        <div class="cards four">
-          <article class="card no">
-            <h3>Swiping</h3>
-            <p>Your thumb can retire. No more judging a stack of faces, and no more being judged in half a second.</p>
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps. We do two of them.</h2>
+
+        <div class="steps">
+          <article class="step">
+            <div>
+              <span class="step-n">1</span>
+              <p class="who-does">You talk</p>
+              <h3>Just talk. We get you.</h3>
+              <p>It feels like texting a friend who’s genuinely curious about your week. No forms, no checkboxes, no bio. While you talk, we quietly learn two things: who you are, and who you’re looking for. The more you talk, the better we know you.</p>
+            </div>
+            <figure class="visual" aria-label="A chat. The friend asks about the weekend; the user says they cooked for friends (who they are). The friend asks who is missing from that table; the user says someone who makes them laugh (who they are looking for). Each answer becomes a shape in the profile.">
+              <div class="legend">
+                <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>Who you are</span>
+                <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="wants" stroke="currentColor"/></svg>Who you’re looking for</span>
+              </div>
+              <div class="talk">
+                <div class="bubbles">
+                  <p class="bubble them">So, what did you get up to this weekend?</p>
+                  <p class="bubble me">Cooked for eight friends. It’s my Sunday thing. <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg></p>
+                  <p class="bubble them">Love that. Who’s missing from that table?</p>
+                  <p class="bubble me">Someone who makes me laugh. And stays for the dishes. <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg></p>
+                  <p class="bubble them">Saturday night: out or in?</p>
+                  <p class="bubble me">In. Good film, big blanket. <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg></p>
+                  <p class="bubble them">And them?</p>
+                  <p class="bubble me">Curious. The kind who’d drag me to a new country. <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg></p>
+                </div>
+                <div class="arrow" aria-hidden="true">
+                  <svg viewBox="0 0 44 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="dash-flow" d="M2 10 H36"/><path d="M32 4 L40 10 L32 16"/></svg>
+                </div>
+                <div class="profile">
+                  <div class="profile-title"><span class="avatar"></span>You</div>
+                  <p class="row-label">Who you are</p>
+                  <div class="row">
+                    <svg class="shape c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                    <svg class="shape c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                  </div>
+                  <p class="row-label">Who you’re looking for</p>
+                  <div class="row">
+                    <svg class="shape c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
+                    <svg class="shape c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
+                  </div>
+                </div>
+              </div>
+            </figure>
           </article>
-          <article class="card no">
-            <h3>Small talk</h3>
-            <p>No “hey”. No “wyd”. No three weeks of chat that go nowhere. We already did the getting-to-know part.</p>
+
+          <article class="step">
+            <div>
+              <span class="step-n">2</span>
+              <p class="who-does">We do the work</p>
+              <h3>We find your fit. Not your clone.</h3>
+              <p>Other apps match you with people just like you: same hobbies, same answers. Chemistry doesn’t work like that. We search every day, near you, for the person who’s looking for someone exactly like you, and who happens to be what you’re looking for. Two different people, one fit. They say yes too, so every match is a yes from both sides.</p>
+              <p class="quote">You only have to be yourself. <span>We’ll find the person who’s looking for exactly that.</span></p>
+            </div>
+            <figure class="visual" aria-label="Two ways to match. Other apps: two people with the same filled shapes. ninetynine: the dashed shapes you are looking for are the filled shapes of who they are.">
+              <div class="alike">
+                <div class="match-row">
+                  <div class="who">
+                    <p class="who-name">You are</p>
+                    <div class="row">
+                      <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                      <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                    </div>
+                  </div>
+                  <span class="op">=</span>
+                  <div class="who">
+                    <p class="who-name">They are</p>
+                    <div class="row">
+                      <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                      <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <p class="match-caption"><b>Other apps: alike.</b> Looks great on paper. Then you meet, and there’s nothing there.</p>
+              </div>
+              <div class="versus"></div>
+              <div class="fit">
+                <div class="match-row">
+                  <div class="who">
+                    <p class="who-name">You’re looking for</p>
+                    <div class="row">
+                      <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
+                      <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
+                    </div>
+                  </div>
+                  <span class="op" aria-hidden="true"><svg viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="dash-flow" d="M3 10 H33"/><path d="M28 4 L35 10 L28 16"/></svg></span>
+                  <div class="who">
+                    <p class="who-name">They are</p>
+                    <div class="row">
+                      <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="is" fill="currentColor"/></svg>
+                      <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="is" fill="currentColor"/></svg>
+                    </div>
+                  </div>
+                </div>
+                <p class="match-caption"><b>ninetynine: a fit.</b> What you want is who they are.</p>
+              </div>
+            </figure>
           </article>
-          <article class="card no">
-            <h3>Selling yourself</h3>
-            <p>No bio to polish. No best angle. No fake version of you. You are not a product on a shelf.</p>
-          </article>
-          <article class="card no">
-            <h3>Pen pals</h3>
-            <p>When you both say yes and you are close by, that is it. You meet. Not next month. Now.</p>
+
+          <article class="step yours">
+            <div>
+              <span class="step-n">3</span>
+              <p class="who-does">Your 1%</p>
+              <h3>Go find them.</h3>
+              <p>You both said yes. That’s it: no chat first, no planning, no “so… when are you free?”. You get a rough area on the map where they are. Walk toward it and the area shrinks. Keep going, it shrinks again. Close enough, and there they are: a real face, right in front of you. We leave this part to you on purpose. It’s the best part.</p>
+            </div>
+            <figure class="search" aria-label="A map with three nested circles around the other person. The outer circle is the whole neighbourhood, the middle one a few streets, the inner one right there. You walk in from the edge along a dashed path.">
+              <div class="field">
+                <span class="ring r1"></span>
+                <span class="ring r2"></span>
+                <span class="ring r3"></span>
+                <span class="ring-label l1">the neighbourhood</span>
+                <span class="ring-label l2">a few streets</span>
+                <svg class="path" viewBox="0 0 100 100" aria-hidden="true"><line x1="15" y1="77" x2="46" y2="52"/></svg>
+                <div class="person them"><span class="avatar b"></span>Them</div>
+                <div class="person you"><span class="avatar"></span>You</div>
+              </div>
+              <ul class="shrink">
+                <li>2 km</li>
+                <li>500 m</li>
+                <li>50 m</li>
+                <li>hi.</li>
+              </ul>
+            </figure>
           </article>
         </div>
       </div>
@@ -485,133 +663,8 @@
       <div class="wrap">
         <p class="eyebrow">Why we do this</p>
         <h2>People need people. Not screens.</h2>
-        <p class="intro">A match on a screen is not a date. A coffee is. A walk is. A laugh across a table is. Real chemistry happens in the same room, not in a chat window. So we do everything that keeps you on your phone, and we give you back the part that matters: the moment you meet.</p>
-        <p class="big display">Less scrolling.<br><span>More living.</span></p>
-      </div>
-    </section>
-
-    <section id="how">
-      <div class="wrap">
-        <p class="eyebrow">How it works</p>
-        <h2>Three steps. We do two of them.</h2>
-        <div class="cards three">
-          <article class="card">
-            <span class="step-n">1</span>
-            <h3>Talk to us</h3>
-            <p>Like you would talk to a friend. Who you are, who you want. No forms, no checkboxes, no bio.</p>
-          </article>
-          <article class="card">
-            <span class="step-n">2</span>
-            <h3>We do the work</h3>
-            <p>We search every day, near you, while you live your life. We only bring you people who truly fit, and we tell you why.</p>
-          </article>
-          <article class="card you-step">
-            <span class="step-n">3</span>
-            <h3>You show up</h3>
-            <p>You both say yes, you are close by, the chat opens. Go meet them. That is your 1%.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="profile">
-      <div class="wrap">
-        <p class="eyebrow">Your profile</p>
-        <h2>Just talk. We get you.</h2>
-        <p class="intro">No form to fill, ever. Everything you tell us teaches us two things: who you are, and who you are looking for. The more you talk, the better we know you.</p>
-
-        <figure class="diagram" aria-label="Four sentences from a conversation become shapes in a profile. Two sentences describe the person and become filled shapes under 'who you are'. Two sentences describe the person they want and become dashed shapes under 'who you are looking for'.">
-          <div class="legend">
-            <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>Who someone is</span>
-            <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="wants" stroke="currentColor"/></svg>Who someone is looking for</span>
-          </div>
-          <div class="talk">
-            <div class="bubbles">
-              <p class="bubble">I cook for my friends every Sunday. <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg></p>
-              <p class="bubble">I want someone who makes me laugh. <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg></p>
-              <p class="bubble">I’m more of a quiet night in. <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg></p>
-              <p class="bubble">Someone curious, who loves to travel. <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg></p>
-            </div>
-            <div class="flow" aria-hidden="true">
-              <svg viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="flow-line" d="M2 12 H46"/><path d="M42 5 L51 12 L42 19"/></svg>
-            </div>
-            <div class="profile">
-              <div class="profile-title"><span class="avatar"></span>Your profile</div>
-              <p class="row-label">Who you are</p>
-              <div class="row">
-                <svg class="shape c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
-                <svg class="shape c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
-                <svg class="shape c-blue ghost" viewBox="0 0 32 32"><use href="#diamond" class="is" fill="currentColor"/></svg>
-              </div>
-              <p class="row-label">Who you are looking for</p>
-              <div class="row">
-                <svg class="shape c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
-                <svg class="shape c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
-                <svg class="shape c-blue ghost" viewBox="0 0 32 32"><use href="#diamond" class="wants" stroke="currentColor"/></svg>
-              </div>
-            </div>
-          </div>
-        </figure>
-      </div>
-    </section>
-
-    <section id="fit">
-      <div class="wrap">
-        <p class="eyebrow">How we match</p>
-        <h2>Not the same. A fit.</h2>
-        <p class="intro">Other apps match you with your clone: same hobbies, same answers, same everything. Chemistry does not work like that. We look for the person who is exactly what you are looking for, even if they are nothing like you. And who is looking for exactly someone like you.</p>
-
-        <div class="compare">
-          <figure class="panel dim" aria-label="Matching by similarity: two profiles with the same filled shapes.">
-            <p class="tag">Most apps</p>
-            <h3>Alike</h3>
-            <div class="pair">
-              <div class="who">
-                <p class="who-name">You are</p>
-                <div class="row">
-                  <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
-                  <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
-                </div>
-              </div>
-              <span class="link">=</span>
-              <div class="who">
-                <p class="who-name">They are</p>
-                <div class="row">
-                  <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
-                  <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
-                </div>
-              </div>
-            </div>
-            <p>Same answers, same hobbies. Looks great on paper. Then you meet, and there is nothing there.</p>
-          </figure>
-
-          <figure class="panel fit" aria-label="Matching by fit: the dashed shapes that you are looking for are the same as the filled shapes of who they are.">
-            <p class="tag">ninetynine</p>
-            <h3>A fit</h3>
-            <div class="pair">
-              <div class="who">
-                <p class="who-name">You are looking for</p>
-                <div class="row">
-                  <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
-                  <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
-                </div>
-              </div>
-              <span class="link" aria-hidden="true">
-                <svg viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="flow-line" d="M6 23 H38"/><path d="M33 17 L40 23 L33 29"/></svg>
-              </span>
-              <div class="who">
-                <p class="who-name">They are</p>
-                <div class="row">
-                  <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="is" fill="currentColor"/></svg>
-                  <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="is" fill="currentColor"/></svg>
-                </div>
-              </div>
-            </div>
-            <p>What you want is who they are. You can be completely different people and still click. And they choose you too, so every match is a yes from both sides.</p>
-          </figure>
-        </div>
-
-        <p class="quote display">You do not need to be alike. <span>You need to be what the other person is looking for.</span></p>
+        <p class="lead">A match on a screen is not a date. A coffee is. A walk is. A laugh across a table is. Real chemistry happens in the same room, not in a chat window. So we do everything that keeps you on your phone, and we give you back the only part that matters: the moment you meet.</p>
+        <p class="big display">Put the phone down. <span>Go meet someone.</span></p>
       </div>
     </section>
 
@@ -621,16 +674,16 @@
         <h2>Good to know.</h2>
         <dl class="faq">
           <div>
-            <dt>Who do I talk to?</dt>
-            <dd>Our assistant. It is an AI that listens, asks the right questions and remembers what matters to you. Talk to it like you would talk to a friend.</dd>
+            <dt>Who am I talking to?</dt>
+            <dd>Think of it as a friend who’s weirdly good at setting people up. It listens, asks the right questions and remembers the details. (Yes, it’s an AI. No, it doesn’t judge.)</dd>
           </div>
           <div>
-            <dt>Who can see my profile?</dt>
-            <dd>Nobody browses through people on ninetynine. A person sees your profile only when we think you two fit.</dd>
+            <dt>Who sees my profile?</dt>
+            <dd>Nobody scrolls through people on ninetynine. Someone sees your profile only when we think you two fit.</dd>
           </div>
           <div>
             <dt>Is my location private?</dt>
-            <dd>Yes. We never show your exact location to anybody. Before you meet, the other person sees only an approximate area.</dd>
+            <dd>Yes. Nobody ever sees your exact location, not even a match. When you both say yes, they see a rough area, a neighbourhood, not a pin. As you walk toward each other, the area shrinks. It only gets precise when you’re both almost there, and it fades again when you leave.</dd>
           </div>
           <div>
             <dt>What does it cost?</dt>
@@ -642,8 +695,8 @@
 
     <section class="closing">
       <div class="wrap">
-        <h2>Put the phone down. Go meet someone.</h2>
-        <p>ninetynine is coming soon. We are finishing our 99%. Get ready for yours.</p>
+        <h2>Less scrolling. <span>More living.</span></h2>
+        <p>ninetynine is coming soon. We’re finishing our 99%. Get ready for yours.</p>
       </div>
     </section>
   </main>
@@ -654,28 +707,5 @@
       <span>ninetynine.love · &copy; 2026</span>
     </footer>
   </div>
-
-  <script>
-    // The bar starts complete in the HTML, so it is correct without JS. With JS, it fills from 0 to 99 once.
-    (() => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const fill = document.getElementById("fill");
-      const count = document.getElementById("count");
-      fill.style.width = "0%";
-      count.textContent = "0";
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        fill.classList.add("go");
-        fill.style.width = "99%";
-        let start;
-        const step = (now) => {
-          start ??= now;
-          const t = Math.min((now - start) / 2400, 1);
-          count.textContent = Math.round(99 * (1 - Math.pow(1 - t, 3)));
-          if (t < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      }));
-    })();
-  </script>
 </body>
 </html>
