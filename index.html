@@ -69,17 +69,24 @@
   .hand { font-family: var(--f-hand); font-weight: 600; color: var(--coral); }
 
   /* Ninty, the mascot */
-  .nini-svg .body { fill: var(--nini); }
-  .nini-svg .belly { fill: #fff; opacity: .14; }
-  .nini-svg .eye-w { fill: #fff; }
-  .nini-svg .pupil { fill: #1d1433; }
-  .nini-svg .cheek { fill: #ff8f7a; opacity: .7; }
-  .nini-svg .mouth { fill: #1d1433; }
-  .nini-svg .tongue { fill: #ff8f7a; }
-  .nini-svg .eyes { transform-origin: 50% 46%; transform-box: fill-box; animation: blink 4.5s infinite; }
+  /* Ninty's colour is a registered property so it can fade. Speed and easing are set per mood in the script */
+  @property --nb { syntax: "<color>"; inherits: true; initial-value: #7b5ce0; }
+  .nini-svg { overflow: visible; }
+  .eyes { transform-origin: 50% 50%; transform-box: fill-box; animation: blink 4.5s infinite; }
   @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.08); } }
   .av-nini { background: var(--violet-soft); display: grid; place-items: center; overflow: hidden; }
-  .av-nini svg { width: 120%; height: 120%; margin-top: 6px; }
+  .av-nini svg { width: 118%; height: 118%; margin-top: 8px; }
+  /* resting colours, used before the script takes over */
+  [data-mood="happy"] { --nb: #7b5ce0; } [data-mood="smirk"] { --nb: #a06cf0; } [data-mood="judge"] { --nb: #4b3496; }
+  [data-mood="shock"] { --nb: #2f7de1; } [data-mood="angry"] { --nb: #e0393e; } [data-mood="sad"] { --nb: #6f7d9b; }
+  [data-mood="hyped"] { --nb: #17b28a; } [data-mood="love"] { --nb: #ec5f8a; } [data-mood="care"] { --nb: #7f8cf0; }
+  /* eyes per mood (white and dark only) */
+  [data-eyes] { display: none; }
+  [data-mood="happy"] [data-eyes="normal"], [data-mood="care"] [data-eyes="normal"],
+  [data-mood="smirk"] [data-eyes="smirk"], [data-mood="judge"] [data-eyes="judge"],
+  [data-mood="angry"] [data-eyes="angry"], [data-mood="sad"] [data-eyes="sad"],
+  [data-mood="shock"] [data-eyes="shock"], [data-mood="hyped"] [data-eyes="happy"],
+  [data-mood="love"] [data-eyes="sparkle"] { display: inline; }
 
   /* nav */
   nav { display: flex; align-items: center; justify-content: space-between; padding-block: 20px; }
@@ -173,20 +180,32 @@
   .meet { padding-block: 88px 24px; }
   .meet-card { position: relative; display: grid; gap: 32px; align-items: center; padding: clamp(28px, 5vw, 56px); border-radius: 40px; background: var(--violet-soft); overflow: hidden; }
   @media (min-width: 900px) { .meet-card { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; } }
-  .nini-big { position: relative; display: grid; place-items: center; min-height: 300px; }
-  .nini-big .nini-svg { width: min(260px, 70vw); animation: bob 3.2s ease-in-out infinite; filter: drop-shadow(0 18px 24px rgba(91, 63, 168, .25)); }
-  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
-  .nini-big .shadow { position: absolute; bottom: 6px; width: 140px; height: 18px; border-radius: 50%; background: var(--nini); opacity: .14; animation: shad 3.2s ease-in-out infinite; }
-  @keyframes shad { 50% { transform: scaleX(.8); opacity: .08; } }
+  .nini-big { position: relative; display: grid; justify-items: center; gap: 14px; }
+  .bubble-slot { position: relative; z-index: 3; height: 112px; width: min(100%, 300px); display: flex; align-items: flex-end; justify-content: center; }
+  .nini-big .body-wrap { position: relative; z-index: 1; width: min(240px, 64vw); aspect-ratio: 200 / 190; top: 0; transition: top 2s ease-in-out; }
+  .nini-big .nini-svg { display: block; width: 100%; height: 100%; animation: bob 3.2s ease-in-out infinite; filter: drop-shadow(0 18px 24px rgba(40, 20, 90, .22)); }
+  .nini-big[data-mood="sad"] .body-wrap { top: 12px; }
+  .nini-big[data-mood="sad"] .nini-svg { animation-duration: 6s; }
+  .nini-big .glow { position: absolute; z-index: 0; left: 50%; top: 62%; width: 300px; height: 300px; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--nb) 30%, transparent), transparent 70%); pointer-events: none; }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+  /* one-shot bursts that go with a mood change */
+  .fx-shake .body-wrap { animation: shake .45s linear; }
+  @keyframes shake { 0%, 100% { translate: 0 0; } 15% { translate: -9px 0; } 30% { translate: 8px 0; } 45% { translate: -6px 0; } 60% { translate: 5px 0; } 75% { translate: -3px 0; } }
+  .fx-jolt .body-wrap { animation: jolt .4s cubic-bezier(.2, 1.8, .4, 1); }
+  @keyframes jolt { 0% { translate: 0 0; scale: 1; } 30% { translate: 0 -22px; scale: 1.06 .94; } 100% { translate: 0 0; scale: 1; } }
+  .fx-pop .body-wrap { animation: popfx .6s var(--bounce); }
+  @keyframes popfx { 0% { scale: 1; } 40% { scale: 1.12; } 100% { scale: 1; } }
+  .av-nini.fx-shake { animation: shake .45s linear; } .av-nini.fx-jolt { animation: jolt .4s cubic-bezier(.2,1.8,.4,1); } .av-nini.fx-pop { animation: popfx .6s var(--bounce); }
   .quote-bubble {
-    position: absolute; top: 0; right: 0; max-width: 220px;
-    padding: 10px 14px; border-radius: 18px 18px 18px 6px;
+    position: relative; z-index: 3; max-width: 100%;
+    display: grid; place-items: center; text-align: center;
+    padding: 12px 16px; border-radius: 20px;
     background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
-    font-size: 15px; font-weight: 500; line-height: 1.3;
+    font-size: 16px; font-weight: 600; line-height: 1.3;
     transition: opacity .25s, transform .35s var(--bounce);
   }
+  .quote-bubble::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 16px; height: 16px; translate: -50% 0; rotate: 45deg; background: var(--surface); border-radius: 3px; }
   .quote-bubble.swap { opacity: 0; transform: scale(.85) translateY(6px); }
-  @media (max-width: 520px) { .quote-bubble { position: relative; justify-self: center; margin-bottom: 12px; } .nini-big { min-height: 0; } }
   .meet h2 span { color: var(--violet); }
   .meet .intro { margin-top: 16px; max-width: 32em; font-size: 18px; }
   .lines { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
@@ -208,8 +227,8 @@
   .copy p { margin-top: 14px; max-width: 30em; }
   .copy .side { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
   .copy .side .av { width: 40px; height: 40px; }
-  .copy .side span { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--bg); border: 1px solid var(--line); color: var(--ink); font-size: 15px; font-weight: 500; line-height: 1.3; }
-  .yours .copy .side span { background: var(--surface); border-color: transparent; }
+  .copy .side span:not(.av) { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--bg); border: 1px solid var(--line); color: var(--ink); font-size: 15px; font-weight: 500; line-height: 1.3; }
+  .yours .copy .side span:not(.av) { background: var(--surface); border-color: transparent; }
 
   /* beat 2 */
   .yes-scene { display: grid; justify-items: center; gap: 22px; padding: 12px 0; }
@@ -226,7 +245,7 @@
   .heart.off { transform: scale(0); opacity: 0; }
   .nini-react { display: flex; align-items: center; gap: 10px; transition: transform .4s var(--bounce), opacity .3s; }
   .nini-react .av { width: 44px; height: 44px; }
-  .nini-react span { padding: 8px 14px; border-radius: 18px 18px 18px 6px; background: var(--teal-soft); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .nini-react span:not(.av) { padding: 8px 14px; border-radius: 18px 18px 18px 6px; background: var(--teal-soft); color: var(--ink); font-weight: 600; font-size: 15px; }
   .nini-react.off { transform: translateY(8px) scale(.9); opacity: 0; }
 
   /* beat 3 map */
@@ -249,9 +268,9 @@
   .map-label b { color: var(--coral); font-variant-numeric: tabular-nums; min-width: 4.4em; }
   .coach { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 5; display: flex; align-items: flex-end; gap: 8px; }
   .coach .av { width: 42px; height: 42px; box-shadow: var(--shadow); }
-  .coach span { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; box-shadow: var(--shadow); transition: transform .35s var(--bounce), opacity .2s; }
-  .coach span.swap { transform: scale(.8); opacity: 0; }
-  .map.unlocked .coach span { background: var(--violet); color: #fff; }
+  .coach #coach { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; box-shadow: var(--shadow); transition: transform .35s var(--bounce), opacity .2s; }
+  .coach #coach.swap { transform: scale(.8); opacity: 0; }
+  .map.unlocked .coach #coach { background: var(--violet); color: #fff; }
   .map.snap * { transition: none !important; }
 
   .beat .phone .chat-body { height: 330px; }
@@ -295,21 +314,9 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="nini" viewBox="0 0 200 200">
-      <path class="body" d="M100 22 C 150 22, 178 62, 178 108 C 178 156, 146 182, 100 182 C 54 182, 22 156, 22 108 C 22 62, 50 22, 100 22 Z"/>
-      <path class="body" d="M86 26 C 84 12, 92 4, 100 8 C 96 12, 96 18, 100 24 Z"/>
-      <ellipse class="belly" cx="100" cy="132" rx="52" ry="36"/>
-      <g class="eyes">
-        <ellipse class="eye-w" cx="74" cy="92" rx="20" ry="23"/>
-        <ellipse class="eye-w" cx="126" cy="92" rx="20" ry="23"/>
-        <circle class="pupil" cx="80" cy="96" r="10"/>
-        <circle class="pupil" cx="132" cy="96" r="10"/>
-        <circle cx="84" cy="92" r="3.5" fill="#fff"/>
-        <circle cx="136" cy="92" r="3.5" fill="#fff"/>
-      </g>
-      <ellipse class="cheek" cx="52" cy="122" rx="11" ry="7"/>
-      <ellipse class="cheek" cx="148" cy="122" rx="11" ry="7"/>
-      <path class="mouth" d="M84 124 Q 100 146 118 124 Q 100 132 84 124 Z"/>
-      <path class="tongue" d="M96 132 Q 104 140 110 130 Q 103 134 96 132 Z"/>
+      <path d="M100 22 C 150 22, 178 62, 178 108 C 178 156, 146 182, 100 182 C 54 182, 22 156, 22 108 C 22 62, 50 22, 100 22 Z" style="fill:var(--nb)"/>
+      <path d="M86 26 C 84 12, 92 4, 100 8 C 96 12, 96 18, 100 24 Z" style="fill:var(--nb)"/>
+      <ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="80" cy="96" r="10" fill="#1d1433"/><circle cx="132" cy="96" r="10" fill="#1d1433"/><circle cx="84" cy="92" r="3.5" fill="#fff"/><circle cx="136" cy="92" r="3.5" fill="#fff"/>
     </symbol>
     <symbol id="lea" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
       <defs>
@@ -350,7 +357,7 @@
   <header class="hero" id="top">
     <div>
       <h1>We do 99%.<br>You do <span class="one">the last 1%.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 60 4, 120 18, 180 9 S 270 6, 296 12"/></svg></span></h1>
-      <p class="lede">Chat with Ninty, your new slightly unhinged best friend. She'll roast you a little, make you laugh a lot, and find someone near you who's actually your type. <b>Then you go find them.</b> For real, outside.</p>
+      <p class="lede">Chat with Ninty, your new slightly unhinged best friend. He'll roast you a little, make you laugh a lot, and find someone near you who's actually your type. <b>Then you go find them.</b> For real, outside.</p>
 
       <div class="bar" role="img" aria-label="A progress bar at 99 percent. We do the 99. The last 1 percent is yours.">
         <div class="bar-head"><span class="us"><span id="pct">99</span>% us</span><span class="you">1% you</span></div>
@@ -363,7 +370,7 @@
       <span class="sticker st1"><s>swiping</s></span>
       <span class="sticker st2"><s>writing a bio</s></span>
       <span class="sticker st3"><s>3 weeks of "haha yeah"</s></span>
-      <div class="phone" role="img" aria-label="A chat with Ninty. She roasts your flirting and your cooking, then shows you Lea, a woman nearby, with her photo. You say yes and Lea says yes too.">
+      <div class="phone" role="img" aria-label="A chat with Ninty. He roasts your flirting and your cooking, then shows you Lea, a woman nearby, with her photo. You say yes and Lea says yes too.">
         <div class="screen" aria-hidden="true">
           <div class="bar-top"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><div><b>Ninty</b><small>online · judging you lovingly</small></div></div>
           <div class="chat-body" id="heroChat">
@@ -387,17 +394,26 @@
   <section class="meet" id="nini">
     <div class="wrap">
       <div class="meet-card">
-        <div class="nini-big">
-          <p class="quote-bubble" id="quote">you're not picky. you have taste. ok you're also picky</p>
-          <svg class="nini-svg" viewBox="0 0 200 200" role="img" aria-label="Ninty, a round violet blob with big eyes and a cheeky grin">
-            <use href="#nini"/>
-          </svg>
-          <span class="shadow"></span>
+        <div class="nini-big" id="meetNinty" data-mood="smirk">
+          <div class="bubble-slot"><p class="quote-bubble" id="quote">you're not picky. you have taste. ok you're also picky</p></div>
+          <span class="glow"></span>
+          <div class="body-wrap"><svg class="nini-svg" viewBox="0 0 200 190" role="img" aria-label="Ninty, a round blob with a little drop on top and big expressive eyes. His colour changes with his mood.">
+            <path d="M100 22 C 150 22, 178 62, 178 108 C 178 156, 146 182, 100 182 C 54 182, 22 156, 22 108 C 22 62, 50 22, 100 22 Z" style="fill:var(--nb)"/>
+      <path d="M86 26 C 84 12, 92 4, 100 8 C 96 12, 96 18, 100 24 Z" style="fill:var(--nb)"/>
+            <g class="eyes" data-eyes="normal"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="80" cy="96" r="10" fill="#1d1433"/><circle cx="132" cy="96" r="10" fill="#1d1433"/><circle cx="84" cy="92" r="3.5" fill="#fff"/><circle cx="136" cy="92" r="3.5" fill="#fff"/></g>
+            <g class="eyes" data-eyes="smirk"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="84" cy="98" r="10" fill="#1d1433"/><circle cx="136" cy="98" r="10" fill="#1d1433"/><circle cx="88" cy="94" r="3.5" fill="#fff"/><circle cx="140" cy="94" r="3.5" fill="#fff"/><path d="M50 87 L50 60 L98 60 L98 87 Z" style="fill:var(--nb)"/><path d="M102 87 L102 60 L150 60 L150 87 Z" style="fill:var(--nb)"/></g>
+            <g class="eyes" data-eyes="judge"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="74" cy="100" r="10" fill="#1d1433"/><circle cx="126" cy="100" r="10" fill="#1d1433"/><circle cx="78" cy="96" r="3.5" fill="#fff"/><circle cx="130" cy="96" r="3.5" fill="#fff"/><path d="M50 93 L50 60 L98 60 L98 93 Z" style="fill:var(--nb)"/><path d="M102 93 L102 60 L150 60 L150 93 Z" style="fill:var(--nb)"/></g>
+            <g class="eyes" data-eyes="angry"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="76" cy="98" r="10" fill="#1d1433"/><circle cx="128" cy="98" r="10" fill="#1d1433"/><circle cx="80" cy="94" r="3.5" fill="#fff"/><circle cx="132" cy="94" r="3.5" fill="#fff"/><path d="M50 60 L98 60 L98 95 L50 74 Z" style="fill:var(--nb)"/><path d="M102 60 L150 60 L150 74 L102 95 Z" style="fill:var(--nb)"/></g>
+            <g class="eyes" data-eyes="sad"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="74" cy="104" r="10" fill="#1d1433"/><circle cx="126" cy="104" r="10" fill="#1d1433"/><circle cx="78" cy="100" r="3.5" fill="#fff"/><circle cx="130" cy="100" r="3.5" fill="#fff"/><path d="M50 60 L98 60 L98 74 L50 92 Z" style="fill:var(--nb)"/><path d="M102 60 L150 60 L150 92 L102 74 Z" style="fill:var(--nb)"/></g>
+            <g class="eyes" data-eyes="shock"><ellipse cx="74" cy="90" rx="23" ry="27" fill="#fff"/><ellipse cx="126" cy="90" rx="23" ry="27" fill="#fff"/><circle cx="74" cy="90" r="5" fill="#1d1433"/><circle cx="126" cy="90" r="5" fill="#1d1433"/></g>
+            <g class="eyes" data-eyes="happy"><path d="M57 98 Q 74 74 91 98" fill="none" stroke="#1d1433" stroke-width="8" stroke-linecap="round"/><path d="M109 98 Q 126 74 143 98" fill="none" stroke="#1d1433" stroke-width="8" stroke-linecap="round"/></g>
+            <g class="eyes" data-eyes="sparkle"><ellipse cx="74" cy="92" rx="20" ry="23" fill="#fff"/><ellipse cx="126" cy="92" rx="20" ry="23" fill="#fff"/><circle cx="78" cy="95" r="14" fill="#1d1433"/><circle cx="130" cy="95" r="14" fill="#1d1433"/><circle cx="82" cy="91" r="5" fill="#fff"/><circle cx="134" cy="91" r="5" fill="#fff"/><circle cx="72" cy="102" r="2.5" fill="#fff"/><circle cx="124" cy="102" r="2.5" fill="#fff"/></g>
+          </svg></div>
         </div>
         <div>
           <span class="kicker hand">meet your new bestie</span>
-          <h2>This is Ninty. <span>She has no filter.</span></h2>
-          <p class="intro">Ninty is the friend who says what everyone's thinking, hypes you up, roasts your ex, and somehow knows everyone in your neighbourhood. Talking to her feels like a 2am voice note with your best friend, not a form.</p>
+          <h2>This is Ninty. <span>He has no filter.</span></h2>
+          <p class="intro">Ninty is the friend who says what everyone's thinking, hypes you up, roasts your ex, and somehow knows everyone in your neighbourhood. Talking to him feels like a 2am voice note with your best friend, not a form.</p>
           <div class="lines" aria-label="Things Ninty says">
             <span>"3 hour reply time? in this economy?"</span>
             <span>"we don't say his name in this house"</span>
@@ -421,7 +437,7 @@
           <div class="copy">
             <p class="who"><em>1</em>on us</p>
             <h3>Just chat with Ninty.</h3>
-            <p>Your week, your weird Sunday pasta ritual, the guy at the gym who grunts too loud. No forms, no bio, no picking your 6 best photos. She'll ask the questions your friends are too polite to ask.</p>
+            <p>Your week, your weird Sunday pasta ritual, the guy at the gym who grunts too loud. No forms, no bio, no picking your 6 best photos. He'll ask the questions your friends are too polite to ask.</p>
             <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>i ask the real questions. you're welcome</span></div>
           </div>
           <div class="stage">
@@ -445,7 +461,7 @@
           <div class="copy">
             <p class="who"><em>2</em>on us</p>
             <h3>Ninty sends someone your way.</h3>
-            <p>Every now and then she'll slide in with "ok don't freak out but look who's around". Someone nearby who could be good for you. You say yes or nah. If you both say yes, it's on.</p>
+            <p>Every now and then he'll slide in with "ok don't freak out but look who's around". Someone nearby who could be good for you. You say yes or nah. If you both say yes, it's on.</p>
             <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>nobody scrolls through you. i'm very picky about who sees you</span></div>
           </div>
           <div class="yes-scene" id="yesScene" role="img" aria-label="You say yes, Lea says yes, and Ninty celebrates.">
@@ -454,7 +470,7 @@
               <div class="link"><span class="heart" id="heart"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg></span></div>
               <div class="person"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span><b>Lea</b><span class="answer" id="ansB">yes!</span></div>
             </div>
-            <div class="nini-react" id="react" aria-hidden="true"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>SHE SAID YES. i'm screaming. go 🔓</span></div>
+            <div class="nini-react" id="react" aria-hidden="true"><span class="av av-nini" data-mood="love"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>SHE SAID YES. i'm screaming. go 🔓</span></div>
           </div>
         </article>
 
@@ -485,7 +501,7 @@
             <div class="dot them" aria-hidden="true"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span></div>
             <div class="dot you" id="you" aria-hidden="true"><span class="av av-you"></span><span class="tag">you</span></div>
             <div class="map-label" aria-hidden="true">Lea's somewhere in here <b id="dist">~900 m</b></div>
-            <div class="coach" aria-hidden="true"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span id="coach">warmer… 🔥</span></div>
+            <div class="coach" aria-hidden="true"><span class="av av-nini" id="coachAv"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span id="coach">warmer… 🔥</span></div>
           </div>
         </article>
 
@@ -522,7 +538,7 @@
       <span class="kicker hand">the boring stuff? gone</span>
       <h2>Dating apps, minus the second job.</h2>
       <div class="swap-grid">
-        <div class="row"><span class="old">swiping until your thumb hurts</span><span class="arr">→</span><span class="new">chat with Ninty, she brings people to you</span></div>
+        <div class="row"><span class="old">swiping until your thumb hurts</span><span class="arr">→</span><span class="new">chat with Ninty, he brings people to you</span></div>
         <div class="row"><span class="old">a bio you rewrote 14 times</span><span class="arr">→</span><span class="new">no bio. you're more than 300 characters</span></div>
         <div class="row"><span class="old">"haha yeah" for three weeks</span><span class="arr">→</span><span class="new">you're already around the corner</span></div>
         <div class="row"><span class="old">an app that feels like a job interview</span><span class="arr">→</span><span class="new">a friend who makes you laugh first</span></div>
@@ -586,17 +602,44 @@
     requestAnimationFrame(tick);
   }, 500);
 
+  // Ninty's moods: each one has its own colour AND its own way of getting there
+  const MOODS = {
+    happy: { c: '#7b5ce0', d: 700,  e: 'ease' },
+    smirk: { c: '#a06cf0', d: 500,  e: 'ease-out' },
+    judge: { c: '#4b3496', d: 1100, e: 'ease-in-out' },
+    shock: { c: '#2f7de1', d: 90,   e: 'ease-out', fx: 'jolt' },    // instant flash of blue
+    angry: { c: '#e0393e', d: 120,  e: 'ease-in',  fx: 'shake' },   // burst into red
+    sad:   { c: '#6f7d9b', d: 2600, e: 'ease-in-out' },              // slow drain of colour
+    hyped: { c: '#17b28a', d: 900,  e: 'ease-out', fx: 'pop' },
+    love:  { c: '#ec5f8a', d: 800,  e: 'cubic-bezier(.34,1.56,.64,1)', fx: 'pop' },
+    care:  { c: '#7f8cf0', d: 1500, e: 'ease-in-out' }
+  };
+  function setMood(node, mood) {
+    const m = MOODS[mood] || MOODS.happy, prev = node.dataset.mood;
+    let d = m.d, e = m.e;
+    // climbing out of sadness is gradual, whatever comes next (unless it's a shock)
+    if (prev === 'sad' && mood !== 'sad' && !m.fx?.match(/jolt|shake/)) { d = Math.max(d, 2000); e = 'ease-in'; }
+    node.style.transition = `--nb ${d}ms ${e}`;
+    node.style.setProperty('--nb', m.c);
+    node.dataset.mood = mood;
+    node.classList.remove('fx-shake', 'fx-jolt', 'fx-pop');
+    if (m.fx) { void node.offsetWidth; node.classList.add('fx-' + m.fx); }
+  }
+
   // Ninty's rotating one-liners
-  const quote = document.getElementById('quote');
+  const quote = document.getElementById('quote'), meet = document.getElementById('meetNinty');
   const quotes = [
-    "you're not picky. you have taste. ok you're also picky",
-    "left on read since tuesday? we don't wait for men who type like that",
-    "you said you're 'low maintenance' and then sent me 4 voice notes",
-    "your type is literally 'emotionally unavailable with a nice jacket'. we're fixing that",
-    "drink some water. then let's talk about your love life"
+    ["you're not picky. you have taste. ok you're also picky", 'smirk'],
+    ["wait. left on read since TUESDAY?? who raised them", 'angry'],
+    ["your type is 'emotionally unavailable with a nice jacket'. we're fixing that", 'judge'],
+    ["you've never been on a date in your own neighbourhood??", 'shock'],
+    ["you deleted every dating app 4 times this year. that's kinda sad ngl", 'sad'],
+    ["but hey. new app new you. let's GO", 'hyped'],
+    ["bestie you're a catch. a weird catch. but a catch", 'love'],
+    ["drink some water. then let's talk about your love life", 'care']
   ];
-  watch(quote);
-  (async () => { let i = 0; for (;;) { await sleep(3600); await gate(quote); quote.classList.add('swap'); await sleep(260); i = (i + 1) % quotes.length; quote.textContent = quotes[i]; quote.classList.remove('swap'); } })();
+  watch(meet);
+  (async () => { let i = 0; for (;;) { await sleep(3600); await gate(meet); quote.classList.add('swap'); await sleep(260); i = (i + 1) % quotes.length; quote.textContent = quotes[i][0]; setMood(meet, quotes[i][1]); quote.classList.remove('swap'); } })();
 
   // chat engine
   const el = (cls, text) => { const d = document.createElement('div'); d.className = cls; if (text) d.textContent = text; return d; };
@@ -625,6 +668,7 @@
           body.append(t);
           await sleep(600 + s.text.length * 15);
           t.remove();
+          if (s.from === 'ai') { const av = scene.querySelector('.bar-top .av-nini'); if (av) setMood(av, s.mood || 'happy'); }
           body.append(el(cls, s.text));
         }
         await sleep(s.hold || 650);
@@ -646,30 +690,30 @@
 
   const hero = document.querySelector('.hero .phone');
   runChat(hero, document.getElementById('heroChat'), document.getElementById('heroField'), [
-    { from: 'ai', text: 'ok be honest. when did you last flirt with someone irl' },
+    { from: 'ai', text: 'ok be honest. when did you last flirt with someone irl', mood: 'smirk' },
     { from: 'me', text: 'define flirt' },
-    { from: 'ai', text: 'oh no 💀', hold: 900 },
+    { from: 'ai', text: 'oh no 💀', hold: 900, mood: 'shock' },
     { from: 'ai', text: 'ok new question. best part of your week', pause: 100 },
     { from: 'me', text: 'burnt my pasta and still ate it' },
-    { from: 'ai', text: 'a survivor. a warrior. a terrible cook' },
+    { from: 'ai', text: 'a survivor. a warrior. a terrible cook', mood: 'judge' },
     { from: 'me', text: 'wow ok' },
-    { from: 'ai', text: 'relax i\'d still eat it. anyway… found someone 👀' },
+    { from: 'ai', text: 'relax i\'d still eat it. anyway… found someone 👀', mood: 'love' },
     { card: matchCard },
     { sys: 'Lea said yes too 🎉', pause: 900 },
-    { from: 'ai', text: 'GO. now. maybe shower first' }
+    { from: 'ai', text: 'GO. now. maybe shower first', mood: 'love' }
   ]);
 
   const one = document.getElementById('chatOne');
   runChat(one.closest('.phone'), one, document.getElementById('oneField'), [
-    { from: 'ai', text: 'saturday plans?' },
+    { from: 'ai', text: 'saturday plans?', mood: 'happy' },
     { from: 'me', text: 'nothing lol. maybe the flea market' },
     { from: 'me', text: 'i have a plant problem', pause: 200 },
-    { from: 'ai', text: 'how many. be honest' },
+    { from: 'ai', text: 'how many. be honest', mood: 'smirk' },
     { from: 'me', text: '23' },
-    { from: 'ai', text: 'that\'s not a hobby that\'s a cry for help 🌿' },
+    { from: 'ai', text: 'that\'s not a hobby that\'s a cry for help 🌿', mood: 'shock' },
     { from: 'me', text: 'they\'re my kids' },
-    { from: 'ai', text: 'ok so we need someone ready to be a step-parent to a fern' },
-    { from: 'ai', text: 'i know people. leave it with me 😌', pause: 100 }
+    { from: 'ai', text: 'ok so we need someone ready to be a step-parent to a fern', mood: 'judge' },
+    { from: 'ai', text: 'i know people. leave it with me 😌', pause: 100, mood: 'love' }
   ]);
 
   const two = document.getElementById('chatTwo');
@@ -691,13 +735,13 @@
     for (;;) {
       await gate(ys);
       [a, b].forEach(x => { x.classList.add('wait'); x.textContent = '…'; });
-      heart.classList.add('off'); react.classList.add('off');
+      heart.classList.add('off'); react.classList.add('off'); setMood(react.querySelector('.av-nini'), 'judge');
       await sleep(1200); await gate(ys);
       a.classList.remove('wait'); a.textContent = 'yes!';
       await sleep(1100); await gate(ys);
       b.classList.remove('wait'); b.textContent = 'yes!';
       await sleep(500); heart.classList.remove('off');
-      await sleep(450); react.classList.remove('off');
+      await sleep(450); react.classList.remove('off'); await sleep(250); setMood(react.querySelector('.av-nini'), 'love');
       await sleep(3400);
     }
   })();
@@ -707,15 +751,16 @@
   const stages = [
     // Lea sits at (68, 30). Each zone contains her but is centred somewhere else,
     // so she can be anywhere inside it, never at its middle.
-    { z: 92, cx: 50, cy: 50, you: [12, 86], d: 2100, say: 'ok go go go. move 🏃' },
-    { z: 58, cx: 60, cy: 42, you: [32, 66], d: 900, say: 'warmer… 🔥' },
-    { z: 31, cx: 73, cy: 36, you: [50, 48], d: 250, say: 'WARMER. fix your hair' },
-    { z: 13, cx: 65, cy: 32, you: [61, 38], d: 60, say: 'act natural. ACT NATURAL' }
+    { z: 92, cx: 50, cy: 50, you: [12, 86], d: 2100, say: 'ok go go go. move 🏃', mood: 'hyped' },
+    { z: 58, cx: 60, cy: 42, you: [32, 66], d: 900, say: 'warmer… 🔥', mood: 'smirk' },
+    { z: 31, cx: 73, cy: 36, you: [50, 48], d: 250, say: 'WARMER. fix your hair', mood: 'shock' },
+    { z: 13, cx: 65, cy: 32, you: [61, 38], d: 60, say: 'act natural. ACT NATURAL', mood: 'love' }
   ];
   const fmt = m => m >= 1000 ? '~' + (m / 1000).toFixed(1) + ' km' : '~' + m + ' m';
   const setZone = s => { zone.style.width = s.z + '%'; zone.style.left = s.cx + '%'; zone.style.top = s.cy + '%'; };
   const setYou = p => { you.style.left = p[0] + '%'; you.style.top = p[1] + '%'; };
-  const say = async t => { coach.classList.add('swap'); await sleep(200); coach.textContent = t; coach.classList.remove('swap'); };
+  const coachAv = document.getElementById('coachAv');
+  const say = async (t, m) => { setMood(coachAv, m || 'happy'); coach.classList.add('swap'); await sleep(200); coach.textContent = t; coach.classList.remove('swap'); };
   const countTo = (from, to, ms) => new Promise(r => {
     const t0 = performance.now();
     const f = t => { const p = Math.min(1, (t - t0) / ms); const v = from + (to - from) * (1 - Math.pow(1 - p, 3)); dist.textContent = fmt(v >= 1000 ? Math.round(v / 100) * 100 : Math.round(v / 10) * 10 || 10); p < 1 ? requestAnimationFrame(f) : r(); };
@@ -726,7 +771,7 @@
     for (;;) {
       await gate(map);
       map.classList.add('snap'); map.classList.remove('unlocked');
-      setZone(stages[0]); setYou(stages[0].you); dist.textContent = fmt(stages[0].d); coach.textContent = stages[0].say;
+      setZone(stages[0]); setYou(stages[0].you); dist.textContent = fmt(stages[0].d); coach.textContent = stages[0].say; setMood(coachAv, stages[0].mood);
       const pts = [stages[0].you.join(',')]; trail.setAttribute('points', pts.join(' '));
       void map.offsetWidth; map.classList.remove('snap');
       await sleep(1200);
@@ -736,13 +781,13 @@
         await sleep(1750);
         pts.push(stages[i].you.join(',')); trail.setAttribute('points', pts.join(' '));
         setZone(stages[i]);
-        say(stages[i].say);
+        say(stages[i].say, stages[i].mood);
         await countTo(stages[i - 1].d, stages[i].d, 1000);
         await sleep(700);
       }
       map.classList.add('unlocked');
       dist.textContent = 'right here';
-      say('chat unlocked 🔓 say hi before i do');
+      say('chat unlocked 🔓 say hi before i do', 'love');
       await sleep(4000);
     }
   })();
