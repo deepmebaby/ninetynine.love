@@ -1,10 +1,10 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>ninetynine</title>
+<title>ninetynine with Ninty</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
-  /* Layout: playful split hero with a live phone, then a 4-beat story (us, us, you, you), each beat with its own looping scene */
+  /* Layout: split hero with a live phone, then "meet Ninty" (the character), then a 4-beat story (us, us, you, you) where Ninty comments on everything */
   :root {
     --bg: #fbfaf8;
     --surface: #ffffff;
@@ -21,6 +21,8 @@
     --coral-soft: #fcebe6;
     --street: #ece7f3;
     --park: #e3f2ee;
+    --nini: #7b5ce0;
+    --nini-dark: #5b3fa8;
     --shadow: 0 1px 2px rgba(36, 26, 61, .06), 0 18px 40px -18px rgba(60, 40, 120, .28);
     --f-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
     --f-body: "Figtree", system-ui, -apple-system, sans-serif;
@@ -60,160 +62,106 @@
   .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
   @media (min-width: 720px) { .wrap { padding-inline: 32px; } }
 
-  h1, h2, h3 {
-    font-family: var(--f-display);
-    color: var(--ink);
-    margin: 0;
-    text-wrap: balance;
-    font-weight: 800;
-  }
+  h1, h2, h3 { font-family: var(--f-display); color: var(--ink); margin: 0; text-wrap: balance; font-weight: 800; }
   h2 { font-size: clamp(34px, 5.4vw, 60px); line-height: 1; letter-spacing: -0.035em; }
   h3 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; }
   p { margin: 0; }
   .hand { font-family: var(--f-hand); font-weight: 600; color: var(--coral); }
 
+  /* Ninty, the mascot */
+  .nini-svg .body { fill: var(--nini); }
+  .nini-svg .belly { fill: #fff; opacity: .14; }
+  .nini-svg .eye-w { fill: #fff; }
+  .nini-svg .pupil { fill: #1d1433; }
+  .nini-svg .cheek { fill: #ff8f7a; opacity: .7; }
+  .nini-svg .mouth { fill: #1d1433; }
+  .nini-svg .tongue { fill: #ff8f7a; }
+  .nini-svg .eyes { transform-origin: 50% 46%; transform-box: fill-box; animation: blink 4.5s infinite; }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.08); } }
+  .av-nini { background: var(--violet-soft); display: grid; place-items: center; overflow: hidden; }
+  .av-nini svg { width: 120%; height: 120%; margin-top: 6px; }
+
   /* nav */
   nav { display: flex; align-items: center; justify-content: space-between; padding-block: 20px; }
   .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
-  .logo {
-    width: 34px; height: 34px; border-radius: 11px;
-    display: grid; place-items: center;
-    background: var(--violet); color: #fff;
-    font-size: 15px; font-weight: 800; letter-spacing: -0.04em;
-    transform: rotate(-6deg);
-  }
-  .soon {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 14px; font-weight: 600;
-    padding: 7px 14px; border-radius: 999px;
-    background: var(--violet-soft); color: var(--violet);
-  }
+  .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--violet); color: #fff; font-size: 15px; font-weight: 800; letter-spacing: -0.04em; transform: rotate(-6deg); }
+  .soon { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 999px; background: var(--violet-soft); color: var(--violet); }
   .soon i { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: ping 1.8s ease-out infinite; }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 55%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
 
   /* hero */
-  .hero {
-    display: grid; gap: 48px; align-items: center;
-    padding-block: clamp(28px, 6vh, 72px) 72px;
-  }
+  .hero { display: grid; gap: 48px; align-items: center; padding-block: clamp(28px, 6vh, 72px) 72px; }
   @media (min-width: 940px) { .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; } }
   h1 { font-size: clamp(50px, 8.4vw, 104px); line-height: .94; letter-spacing: -0.05em; }
   h1 .one { color: var(--violet); position: relative; white-space: nowrap; }
   h1 .one svg { position: absolute; left: -2%; bottom: -0.16em; width: 104%; height: .32em; overflow: visible; }
-  h1 .one path { stroke: var(--coral); stroke-width: 6; fill: none; stroke-linecap: round; stroke-dasharray: 420; stroke-dashoffset: 0; animation: draw 1.1s .5s var(--ease) both; }
+  h1 .one path { stroke: var(--coral); stroke-width: 6; fill: none; stroke-linecap: round; stroke-dasharray: 420; animation: draw 1.1s .5s var(--ease) both; }
   @keyframes draw { from { stroke-dashoffset: 420; } }
   .lede { margin-top: 28px; max-width: 32em; font-size: clamp(18px, 2vw, 21px); line-height: 1.5; }
   .lede b { color: var(--ink); font-weight: 600; }
 
-  /* the 99% bar */
   .bar { margin-top: 36px; max-width: 540px; }
   .bar-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
   .bar-head .us { color: var(--violet); font-family: var(--f-display); font-size: 18px; font-variant-numeric: tabular-nums; }
   .bar-head .you { color: var(--ink); }
   .track { position: relative; height: 16px; border-radius: 999px; background: var(--line); }
-  .fill {
-    position: absolute; left: 0; top: 0; bottom: 0; width: 99%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--violet-2), var(--violet));
-    overflow: hidden;
-  }
-  .fill::after {
-    content: ""; position: absolute; inset: 0;
-    background: repeating-linear-gradient(-45deg, rgba(255,255,255,.16) 0 10px, transparent 10px 20px);
-    animation: stripes 1s linear infinite;
-  }
+  .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 99%; border-radius: 999px; background: linear-gradient(90deg, var(--violet-2), var(--violet)); overflow: hidden; }
+  .fill::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, rgba(255,255,255,.16) 0 10px, transparent 10px 20px); animation: stripes 1s linear infinite; }
   @keyframes stripes { to { background-position: 28px 0; } }
-  .last {
-    position: absolute; right: -6px; top: 50%; width: 26px; height: 26px;
-    transform: translateY(-50%);
-    border-radius: 50%; background: var(--coral);
-    border: 4px solid var(--bg);
-    animation: nudge 1.6s ease-in-out infinite;
-  }
+  .last { position: absolute; right: -6px; top: 50%; width: 26px; height: 26px; transform: translateY(-50%); border-radius: 50%; background: var(--coral); border: 4px solid var(--bg); animation: nudge 1.6s ease-in-out infinite; }
   @keyframes nudge { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.2); } }
   .bar-note { display: flex; justify-content: flex-end; margin-top: 4px; font-size: 24px; line-height: 1; }
   .bar-note span { transform: rotate(-3deg); }
 
   /* phone */
   .stage { position: relative; display: grid; place-items: center; padding: 12px 0; }
-  .phone {
-    position: relative;
-    width: min(100%, 340px);
-    border-radius: 38px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow);
-    padding: 12px;
-  }
+  .phone { position: relative; width: min(100%, 340px); border-radius: 38px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); padding: 12px; }
   .hero .phone { transform: rotate(2deg); }
   .screen { border-radius: 28px; background: var(--bg); overflow: hidden; display: flex; flex-direction: column; }
   .bar-top { display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line); background: var(--surface); }
   .bar-top b { display: block; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1.2; }
   .bar-top small { display: block; color: var(--teal); font-size: 12px; font-weight: 500; }
   .av { width: 34px; height: 34px; border-radius: 50%; flex: none; }
-  .av-app { background: var(--violet); display: grid; place-items: center; color: #fff; font-family: var(--f-display); font-weight: 800; font-size: 12px; letter-spacing: -0.04em; }
   .av-you { background: conic-gradient(from 200deg, var(--violet), var(--teal), var(--violet-2), var(--violet)); }
-  .av-lea { background: conic-gradient(from 20deg, var(--coral), var(--violet-2), var(--teal), var(--coral)); }
+  .av-lea { overflow: hidden; background: var(--coral-soft); }
+  .av-lea svg { width: 100%; height: 100%; display: block; }
 
-  .chat-body {
-    height: 380px;
-    display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
-    padding: 14px 12px;
-    overflow: hidden;
-  }
-  .msg {
-    max-width: 82%;
-    padding: 8px 13px;
-    border-radius: 20px;
-    font-size: 15px; line-height: 1.35;
-    animation: pop .38s var(--bounce) both;
-  }
+  .chat-body { height: 400px; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: 14px 12px; overflow: hidden; }
+  .msg { max-width: 82%; padding: 8px 13px; border-radius: 20px; font-size: 15px; line-height: 1.35; animation: pop .38s var(--bounce) both; }
   .msg.ai, .msg.them { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); color: var(--ink); border-bottom-left-radius: 6px; transform-origin: bottom left; }
   .msg.me { align-self: flex-end; background: var(--violet); color: #fff; border-bottom-right-radius: 6px; transform-origin: bottom right; }
   .msg.them { background: var(--teal-soft); border-color: transparent; }
+  .msg.big { font-size: 30px; padding: 2px 6px; background: none; border: none; }
   @keyframes pop { from { opacity: 0; transform: scale(.6) translateY(8px); } }
   .typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 12px 14px; border-radius: 20px; border-bottom-left-radius: 6px; background: var(--surface); border: 1px solid var(--line); animation: pop .3s var(--bounce) both; }
   .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: dot 1s infinite; }
   .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
   @keyframes dot { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
-  .sys {
-    align-self: center; margin: 4px 0;
-    padding: 5px 12px; border-radius: 999px;
-    background: var(--violet-soft); color: var(--violet);
-    font-size: 13px; font-weight: 600;
-    animation: pop .4s var(--bounce) both;
-  }
+  .sys { align-self: center; margin: 4px 0; padding: 5px 12px; border-radius: 999px; background: var(--violet-soft); color: var(--violet); font-size: 13px; font-weight: 600; text-align: center; animation: pop .4s var(--bounce) both; }
   .composer { display: flex; align-items: center; gap: 8px; padding: 10px 12px 14px; }
   .composer .field { flex: 1; min-width: 0; height: 38px; display: flex; align-items: center; padding: 0 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 14px; white-space: nowrap; overflow: hidden; }
   .composer .field:empty::before { content: "say anything"; color: var(--muted); }
   .composer .send { width: 38px; height: 38px; border-radius: 50%; background: var(--violet); flex: none; display: grid; place-items: center; }
   .composer .send svg { width: 16px; height: 16px; }
 
-  /* match card inside chat */
-  .mcard {
-    align-self: flex-start; width: 88%;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
-    padding: 12px; box-shadow: var(--shadow);
-    animation: pop .5s var(--bounce) both;
-  }
-  .mc-top { display: flex; align-items: center; gap: 10px; }
-  .mc-top b { color: var(--ink); font-size: 15px; display: block; line-height: 1.2; }
-  .mc-top small { color: var(--muted); font-size: 12px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0; }
+  /* match card with photo */
+  .mcard { align-self: flex-start; width: 90%; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); animation: pop .5s var(--bounce) both; flex: none; }
+  .photo { position: relative; height: 170px; background: var(--coral-soft); }
+  .photo svg { width: 100%; height: 100%; display: block; }
+  .photo .name { position: absolute; left: 12px; bottom: 10px; color: #fff; font-family: var(--f-display); font-weight: 700; font-size: 20px; line-height: 1; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+  .photo .name small { display: block; font-family: var(--f-body); font-weight: 500; font-size: 12px; margin-top: 4px; opacity: .95; }
+  .photo::after { content: ""; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, rgba(30, 18, 50, .55)); }
+  .photo .name { z-index: 1; }
+  .mc-in { padding: 10px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
   .tags span { font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--violet-soft); color: var(--violet); font-weight: 500; }
   .mc-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .mc-btns span { text-align: center; padding: 7px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid var(--line); color: var(--muted); transition: transform .25s var(--bounce), background .2s; }
+  .mc-btns span { text-align: center; padding: 7px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid var(--line); color: var(--muted); transition: transform .25s var(--bounce); }
   .mc-btns .yes { background: var(--coral); border-color: transparent; color: #fff; }
   .mc-btns .yes.pressed { transform: scale(.9); }
 
-  /* stickers around the hero phone */
-  .sticker {
-    position: absolute; z-index: 2;
-    padding: 8px 14px; border-radius: 14px;
-    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
-    font-size: 14px; font-weight: 600; color: var(--ink);
-    animation: float 5s ease-in-out infinite;
-  }
+  /* stickers */
+  .sticker { position: absolute; z-index: 2; padding: 8px 14px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: 14px; font-weight: 600; color: var(--ink); animation: float 5s ease-in-out infinite; }
   .sticker s { text-decoration-color: var(--coral); text-decoration-thickness: 2px; color: var(--muted); }
   .st1 { left: 0; top: 14%; rotate: -7deg; }
   .st2 { right: 0; top: 52%; rotate: 6deg; animation-delay: -1.6s; }
@@ -221,119 +169,97 @@
   @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
   @media (max-width: 520px) { .st1 { left: -4px; top: 4%; } .st2 { right: -4px; } .st3 { display: none; } .sticker { font-size: 13px; } }
 
+  /* meet Ninty */
+  .meet { padding-block: 88px 24px; }
+  .meet-card { position: relative; display: grid; gap: 32px; align-items: center; padding: clamp(28px, 5vw, 56px); border-radius: 40px; background: var(--violet-soft); overflow: hidden; }
+  @media (min-width: 900px) { .meet-card { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 48px; } }
+  .nini-big { position: relative; display: grid; place-items: center; min-height: 300px; }
+  .nini-big .nini-svg { width: min(260px, 70vw); animation: bob 3.2s ease-in-out infinite; filter: drop-shadow(0 18px 24px rgba(91, 63, 168, .25)); }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+  .nini-big .shadow { position: absolute; bottom: 6px; width: 140px; height: 18px; border-radius: 50%; background: var(--nini); opacity: .14; animation: shad 3.2s ease-in-out infinite; }
+  @keyframes shad { 50% { transform: scaleX(.8); opacity: .08; } }
+  .quote-bubble {
+    position: absolute; top: 0; right: 0; max-width: 220px;
+    padding: 10px 14px; border-radius: 18px 18px 18px 6px;
+    background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
+    font-size: 15px; font-weight: 500; line-height: 1.3;
+    transition: opacity .25s, transform .35s var(--bounce);
+  }
+  .quote-bubble.swap { opacity: 0; transform: scale(.85) translateY(6px); }
+  @media (max-width: 520px) { .quote-bubble { position: relative; justify-self: center; margin-bottom: 12px; } .nini-big { min-height: 0; } }
+  .meet h2 span { color: var(--violet); }
+  .meet .intro { margin-top: 16px; max-width: 32em; font-size: 18px; }
+  .lines { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .lines span { padding: 8px 14px; border-radius: 16px; background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 500; }
+  .lines span:nth-child(odd) { rotate: -1deg; } .lines span:nth-child(even) { rotate: 1.2deg; }
+
   /* story */
-  .story { padding-block: 96px 40px; }
+  .story { padding-block: 88px 40px; }
   .story-head { display: grid; gap: 14px; max-width: 760px; }
   .kicker { font-size: 26px; transform: rotate(-2deg); display: inline-block; }
   .beats { display: grid; gap: 28px; margin-top: 56px; }
-  .beat {
-    display: grid; gap: 32px; align-items: center;
-    padding: clamp(24px, 4vw, 48px);
-    border-radius: 36px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-  }
-  @media (min-width: 900px) {
-    .beat { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
-    .beat.flip > .copy { order: 2; }
-  }
+  .beat { display: grid; gap: 32px; align-items: center; padding: clamp(24px, 4vw, 48px); border-radius: 36px; background: var(--surface); border: 1px solid var(--line); }
+  @media (min-width: 900px) { .beat { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; } .beat.flip > .copy { order: 2; } }
   .beat.yours { background: var(--violet-soft); border-color: transparent; }
-  .who {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-    color: var(--violet); margin-bottom: 14px;
-  }
+  .who { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--violet); margin-bottom: 14px; }
   .who em { font-style: normal; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--violet-soft); font-family: var(--f-display); font-size: 14px; letter-spacing: 0; }
   .yours .who { color: var(--coral); }
   .yours .who em { background: var(--coral); color: #fff; }
   .copy p { margin-top: 14px; max-width: 30em; }
-  .copy .side { margin-top: 18px; font-size: 24px; line-height: 1.1; transform: rotate(-1.5deg); }
+  .copy .side { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
+  .copy .side .av { width: 40px; height: 40px; }
+  .copy .side span { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--bg); border: 1px solid var(--line); color: var(--ink); font-size: 15px; font-weight: 500; line-height: 1.3; }
+  .yours .copy .side span { background: var(--surface); border-color: transparent; }
 
-  /* beat 2: both say yes */
+  /* beat 2 */
   .yes-scene { display: grid; justify-items: center; gap: 22px; padding: 12px 0; }
   .pair { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; width: min(100%, 440px); }
   .person { display: grid; justify-items: center; gap: 10px; text-align: center; }
   .person .av { width: 72px; height: 72px; box-shadow: 0 0 0 5px var(--surface), 0 0 0 6px var(--line); }
   .person b { color: var(--ink); font-size: 15px; }
-  .answer {
-    min-width: 76px; padding: 6px 14px; border-radius: 999px;
-    font-weight: 700; font-size: 15px;
-    background: var(--coral); color: #fff;
-    transition: transform .4s var(--bounce), background .3s, color .3s;
-  }
+  .answer { min-width: 76px; padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 15px; background: var(--coral); color: #fff; transition: transform .4s var(--bounce), background .3s, color .3s; }
   .answer.wait { background: var(--line); color: var(--muted); transform: scale(.9); }
   .link { position: relative; width: clamp(60px, 14vw, 110px); height: 40px; display: grid; place-items: center; }
   .link::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 3px dotted var(--violet-2); opacity: .5; }
   .heart { position: relative; width: 40px; height: 40px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; transition: transform .5s var(--bounce), opacity .3s; }
   .heart svg { width: 20px; height: 20px; }
   .heart.off { transform: scale(0); opacity: 0; }
-  .unlock-chip { padding: 8px 16px; border-radius: 999px; background: var(--teal-soft); color: var(--teal); font-weight: 600; font-size: 15px; transition: transform .4s var(--bounce), opacity .3s; }
-  .unlock-chip.off { transform: translateY(8px) scale(.9); opacity: 0; }
+  .nini-react { display: flex; align-items: center; gap: 10px; transition: transform .4s var(--bounce), opacity .3s; }
+  .nini-react .av { width: 44px; height: 44px; }
+  .nini-react span { padding: 8px 14px; border-radius: 18px 18px 18px 6px; background: var(--teal-soft); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .nini-react.off { transform: translateY(8px) scale(.9); opacity: 0; }
 
-  /* beat 3: the zone map */
-  .map {
-    position: relative;
-    width: min(100%, 460px); max-width: 100%; aspect-ratio: 1;
-    margin: 0 auto;
-    border-radius: 28px; overflow: hidden;
-    background: var(--surface);
-    box-shadow: var(--shadow);
-  }
+  /* beat 3 map */
+  .map { position: relative; width: min(100%, 460px); max-width: 100%; aspect-ratio: 1; margin: 0 auto; border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
   .map svg.streets, .map svg.trail { position: absolute; inset: 0; width: 100%; height: 100%; }
   .streets .road { stroke: var(--street); fill: none; stroke-linecap: round; }
   .streets .park { fill: var(--park); }
   .trail polyline { fill: none; stroke: var(--violet); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 7; vector-effect: non-scaling-stroke; }
-  .zone {
-    position: absolute; left: 62%; top: 38%; width: 58%; aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--coral) 26%, transparent) 0%, color-mix(in srgb, var(--coral) 10%, transparent) 70%, transparent 100%);
-    transition: width 1.1s var(--bounce), left 1.1s var(--ease), top 1.1s var(--ease);
-  }
-  .zone::after {
-    content: ""; position: absolute; inset: 0; border-radius: 50%;
-    border: 2.5px dashed var(--coral);
-    animation: spin 14s linear infinite;
-  }
+  .zone { position: absolute; left: 60%; top: 42%; width: 58%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--coral) 26%, transparent) 0%, color-mix(in srgb, var(--coral) 10%, transparent) 70%, transparent 100%); transition: width 1.1s var(--bounce), left 1.1s var(--ease), top 1.1s var(--ease); }
+  .zone::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2.5px dashed var(--coral); animation: spin 14s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .dot { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 4px; }
   .dot .av { width: 36px; height: 36px; box-shadow: 0 0 0 4px var(--surface), var(--shadow); }
-  .you { left: 30%; top: 68%; transition: left 1.7s ease-in-out, top 1.7s ease-in-out; z-index: 3; }
+  .you { left: 32%; top: 66%; transition: left 1.7s ease-in-out, top 1.7s ease-in-out; z-index: 3; }
   .you .tag { font-family: var(--f-hand); font-size: 20px; line-height: 1; color: var(--violet); }
-  .them { left: 61%; top: 40%; z-index: 2; transition: transform .5s var(--bounce), opacity .3s; }
+  .them { left: 68%; top: 30%; z-index: 2; transition: transform .5s var(--bounce), opacity .3s; }
+  .them .av { width: 44px; height: 44px; }
   .map:not(.unlocked) .them { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  .them::before { content: ""; position: absolute; left: 50%; top: 18px; width: 36px; height: 36px; translate: -50% -50%; border-radius: 50%; animation: ping 1.4s ease-out infinite; }
-  .map-label {
-    position: absolute; left: 14px; top: 14px; z-index: 4;
-    display: flex; align-items: center; gap: 8px;
-    padding: 7px 12px; border-radius: 999px;
-    background: var(--surface); border: 1px solid var(--line);
-    font-size: 13px; font-weight: 600; color: var(--ink);
-  }
+  .map-label { position: absolute; left: 14px; top: 14px; z-index: 4; display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: 13px; font-weight: 600; color: var(--ink); }
   .map-label b { color: var(--coral); font-variant-numeric: tabular-nums; min-width: 4.4em; }
-  .toast {
-    position: absolute; left: 50%; bottom: 16px; z-index: 5;
-    translate: -50% 0;
-    display: flex; align-items: center; gap: 8px; white-space: nowrap;
-    padding: 10px 16px; border-radius: 16px;
-    background: var(--violet); color: #fff;
-    font-size: 14px; font-weight: 600;
-    transition: transform .45s var(--bounce), opacity .3s;
-  }
-  .map:not(.unlocked) .toast { transform: translateY(30px) scale(.8); opacity: 0; }
+  .coach { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 5; display: flex; align-items: flex-end; gap: 8px; }
+  .coach .av { width: 42px; height: 42px; box-shadow: var(--shadow); }
+  .coach span { padding: 8px 13px; border-radius: 18px 18px 18px 6px; background: var(--surface); color: var(--ink); font-size: 14px; font-weight: 600; box-shadow: var(--shadow); transition: transform .35s var(--bounce), opacity .2s; }
+  .coach span.swap { transform: scale(.8); opacity: 0; }
+  .map.unlocked .coach span { background: var(--violet); color: #fff; }
   .map.snap * { transition: none !important; }
 
-  /* beat 4 phone */
   .beat .phone .chat-body { height: 330px; }
 
-  /* swap list */
+  /* swap */
   .swap { padding-block: 72px 96px; }
   .swap-grid { margin-top: 40px; display: grid; gap: 12px; }
-  .row {
-    display: grid; gap: 6px 24px; align-items: center;
-    padding: 20px 24px; border-radius: 22px;
-    background: var(--surface); border: 1px solid var(--line);
-  }
+  .row { display: grid; gap: 6px 24px; align-items: center; padding: 20px 24px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); }
   @media (min-width: 760px) { .row { grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr); } }
   .row .old { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--coral); text-decoration-thickness: 2px; }
   .row .arr { color: var(--violet-2); font-weight: 700; display: none; }
@@ -347,20 +273,13 @@
   @media (min-width: 760px) { .faq-grid { grid-template-columns: 1fr 1fr; } }
   .qa { padding: 24px; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); }
   .qa h3 { font-size: 21px; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .qa p { min-width: 0; }
 
   /* closing */
   .closing { padding-block: 40px 96px; }
-  .closing-card {
-    position: relative; overflow: hidden;
-    padding: clamp(40px, 7vw, 88px) clamp(24px, 5vw, 64px);
-    border-radius: 40px;
-    background: var(--violet);
-    text-align: center;
-  }
-  .closing-card h2 { color: #fff; font-size: clamp(42px, 7.6vw, 92px); line-height: .95; letter-spacing: -0.05em; }
-  .closing-card p { color: rgba(255,255,255,.82); margin: 20px auto 0; max-width: 26em; font-size: 19px; }
-  .closing-card .hand { color: #fff; font-size: 30px; display: inline-block; margin-top: 18px; transform: rotate(-3deg); }
+  .closing-card { position: relative; overflow: hidden; padding: clamp(40px, 7vw, 88px) clamp(24px, 5vw, 64px); border-radius: 40px; background: var(--violet); text-align: center; }
+  .closing-card h2 { color: #fff; font-size: clamp(42px, 7.6vw, 92px); line-height: .95; letter-spacing: -0.05em; position: relative; }
+  .closing-card p { color: rgba(255,255,255,.85); margin: 20px auto 0; max-width: 26em; font-size: 19px; position: relative; }
+  .closing-card .hand { color: #fff; font-size: 30px; display: inline-block; margin-top: 18px; transform: rotate(-3deg); position: relative; }
   .ring { position: absolute; border-radius: 50%; border: 2px dashed rgba(255,255,255,.18); left: 50%; top: 50%; translate: -50% -50%; animation: spin 40s linear infinite; pointer-events: none; }
   .ring.a { width: 140%; aspect-ratio: 1; } .ring.b { width: 95%; aspect-ratio: 1; animation-direction: reverse; } .ring.c { width: 50%; aspect-ratio: 1; }
 
@@ -372,6 +291,56 @@
   }
 </style>
 
+<!-- reusable drawings -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="nini" viewBox="0 0 200 200">
+      <path class="body" d="M100 22 C 150 22, 178 62, 178 108 C 178 156, 146 182, 100 182 C 54 182, 22 156, 22 108 C 22 62, 50 22, 100 22 Z"/>
+      <path class="body" d="M86 26 C 84 12, 92 4, 100 8 C 96 12, 96 18, 100 24 Z"/>
+      <ellipse class="belly" cx="100" cy="132" rx="52" ry="36"/>
+      <g class="eyes">
+        <ellipse class="eye-w" cx="74" cy="92" rx="20" ry="23"/>
+        <ellipse class="eye-w" cx="126" cy="92" rx="20" ry="23"/>
+        <circle class="pupil" cx="80" cy="96" r="10"/>
+        <circle class="pupil" cx="132" cy="96" r="10"/>
+        <circle cx="84" cy="92" r="3.5" fill="#fff"/>
+        <circle cx="136" cy="92" r="3.5" fill="#fff"/>
+      </g>
+      <ellipse class="cheek" cx="52" cy="122" rx="11" ry="7"/>
+      <ellipse class="cheek" cx="148" cy="122" rx="11" ry="7"/>
+      <path class="mouth" d="M84 124 Q 100 146 118 124 Q 100 132 84 124 Z"/>
+      <path class="tongue" d="M96 132 Q 104 140 110 130 Q 103 134 96 132 Z"/>
+    </symbol>
+    <symbol id="lea" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="leaBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd9c7"/><stop offset="1" stop-color="#e6dcff"/></linearGradient>
+        <linearGradient id="leaHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a4a32"/><stop offset="1" stop-color="#4a2a1c"/></linearGradient>
+        <radialGradient id="leaSkin" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#f7d2b6"/><stop offset="1" stop-color="#e5b394"/></radialGradient>
+      </defs>
+      <rect width="200" height="200" fill="url(#leaBg)"/>
+      <circle cx="160" cy="40" r="46" fill="#fff" opacity=".35"/>
+      <path d="M56 92 C 50 50, 76 26, 104 26 C 136 26, 156 50, 150 96 C 148 130, 158 160, 164 200 L 40 200 C 46 160, 58 130, 56 92 Z" fill="url(#leaHair)"/>
+      <path d="M22 200 C 30 168, 62 156, 100 156 C 138 156, 170 168, 178 200 Z" fill="#e2674f"/>
+      <path d="M78 172 Q 100 188 122 172 Q 112 168 100 168 Q 88 168 78 172 Z" fill="#c9533e"/>
+      <path d="M88 132 L 112 132 L 114 166 Q 100 176 86 166 Z" fill="#e2ab8c"/>
+      <ellipse cx="100" cy="100" rx="34" ry="41" fill="url(#leaSkin)"/>
+      <path d="M66 94 C 62 56, 88 44, 106 46 C 128 48, 142 66, 136 96 C 128 76, 114 66, 96 64 C 86 74, 76 82, 66 94 Z" fill="url(#leaHair)"/>
+      <path d="M96 64 C 92 58, 104 52, 112 56" stroke="#9a6447" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+      <path d="M77 96 Q 84 92 91 95" stroke="#4a2a1c" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M109 95 Q 116 92 123 96" stroke="#4a2a1c" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M78 105 Q 85 100 92 105" stroke="#2e1a14" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M108 105 Q 115 100 122 105" stroke="#2e1a14" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M100 108 Q 97 116 101 119" stroke="#c98b6c" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="80" cy="116" rx="8" ry="5" fill="#f08b74" opacity=".4"/>
+      <ellipse cx="120" cy="116" rx="8" ry="5" fill="#f08b74" opacity=".4"/>
+      <path d="M88 125 Q 100 138 112 125 Q 100 129 88 125 Z" fill="#c4473f"/>
+      <path d="M91 126 Q 100 130 109 126 L 108 128 Q 100 131 92 128 Z" fill="#fff"/>
+      <circle cx="66" cy="114" r="3.5" fill="#1f9a8a"/>
+      <circle cx="134" cy="114" r="3.5" fill="#1f9a8a"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="wrap">
   <nav>
     <a class="brand" href="#top"><span class="logo">99</span>ninetynine</a>
@@ -381,7 +350,7 @@
   <header class="hero" id="top">
     <div>
       <h1>We do 99%.<br>You do <span class="one">the last 1%.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14 C 60 4, 120 18, 180 9 S 270 6, 296 12"/></svg></span></h1>
-      <p class="lede">Just chat with us like you'd text a friend. We'll find someone near you who's actually your kind of person. <b>Then you go find them.</b> For real, outside.</p>
+      <p class="lede">Chat with Ninty, your new slightly unhinged best friend. She'll roast you a little, make you laugh a lot, and find someone near you who's actually your type. <b>Then you go find them.</b> For real, outside.</p>
 
       <div class="bar" role="img" aria-label="A progress bar at 99 percent. We do the 99. The last 1 percent is yours.">
         <div class="bar-head"><span class="us"><span id="pct">99</span>% us</span><span class="you">1% you</span></div>
@@ -394,16 +363,18 @@
       <span class="sticker st1"><s>swiping</s></span>
       <span class="sticker st2"><s>writing a bio</s></span>
       <span class="sticker st3"><s>3 weeks of "haha yeah"</s></span>
-      <div class="phone" role="img" aria-label="A chat with ninetynine. Casual small talk about burnt pasta, then the app suggests someone nearby called Lea, you say yes, and Lea says yes too.">
+      <div class="phone" role="img" aria-label="A chat with Ninty. She roasts your flirting and your cooking, then shows you Lea, a woman nearby, with her photo. You say yes and Lea says yes too.">
         <div class="screen" aria-hidden="true">
-          <div class="bar-top"><span class="av av-app">99</span><div><b>ninetynine</b><small>online</small></div></div>
+          <div class="bar-top"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><div><b>Ninty</b><small>online · judging you lovingly</small></div></div>
           <div class="chat-body" id="heroChat">
-            <div class="msg ai">ok so what was the best part of your week</div>
-            <div class="msg me">honestly? burnt my pasta and still ate it lol</div>
-            <div class="msg ai">iconic 😂 who'd you want at the table for that</div>
-            <div class="msg me">someone who'd laugh at it w me</div>
-            <div class="msg ai">btw. think i found someone near you 👀</div>
-            <div class="sys">Lea said yes too 🎉 go find her</div>
+            <div class="msg ai">a survivor. a warrior. a terrible cook</div>
+            <div class="msg me">wow ok</div>
+            <div class="msg ai">relax i'd still eat it. anyway 👀</div>
+            <div class="mcard">
+              <div class="photo"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg><span class="name">Lea, 26<small>somewhere around you</small></span></div>
+              <div class="mc-in"><div class="mc-btns"><span>not today</span><span class="yes">yes ✓</span></div></div>
+            </div>
+            <div class="sys">Lea said yes too 🎉</div>
           </div>
           <div class="composer"><span class="field" id="heroField"></span><span class="send"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></span></div>
         </div>
@@ -413,6 +384,31 @@
 </div>
 
 <main>
+  <section class="meet" id="nini">
+    <div class="wrap">
+      <div class="meet-card">
+        <div class="nini-big">
+          <p class="quote-bubble" id="quote">you're not picky. you have taste. ok you're also picky</p>
+          <svg class="nini-svg" viewBox="0 0 200 200" role="img" aria-label="Ninty, a round violet blob with big eyes and a cheeky grin">
+            <use href="#nini"/>
+          </svg>
+          <span class="shadow"></span>
+        </div>
+        <div>
+          <span class="kicker hand">meet your new bestie</span>
+          <h2>This is Ninty. <span>She has no filter.</span></h2>
+          <p class="intro">Ninty is the friend who says what everyone's thinking, hypes you up, roasts your ex, and somehow knows everyone in your neighbourhood. Talking to her feels like a 2am voice note with your best friend, not a form.</p>
+          <div class="lines" aria-label="Things Ninty says">
+            <span>"3 hour reply time? in this economy?"</span>
+            <span>"we don't say his name in this house"</span>
+            <span>"that shirt is giving 'i own a boat'"</span>
+            <span>"bestie you're a catch. a weird catch. but a catch"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="story" id="how">
     <div class="wrap">
       <div class="story-head">
@@ -421,25 +417,23 @@
       </div>
 
       <div class="beats">
-        <!-- 1 -->
         <article class="beat">
           <div class="copy">
             <p class="who"><em>1</em>on us</p>
-            <h3>Just chat. About anything.</h3>
-            <p>Your week, your weird Sunday pasta ritual, the song stuck in your head. No forms, no bio, no picking your 6 best photos. Just talk like you would with a friend.</p>
-            <p class="side hand">it talks like a person too, promise</p>
+            <h3>Just chat with Ninty.</h3>
+            <p>Your week, your weird Sunday pasta ritual, the guy at the gym who grunts too loud. No forms, no bio, no picking your 6 best photos. She'll ask the questions your friends are too polite to ask.</p>
+            <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>i ask the real questions. you're welcome</span></div>
           </div>
           <div class="stage">
-            <div class="phone" role="img" aria-label="A relaxed chat with the app about Saturday plans and plants.">
+            <div class="phone" role="img" aria-label="Ninty teasing you about owning 23 plants.">
               <div class="screen" aria-hidden="true">
-                <div class="bar-top"><span class="av av-app">99</span><div><b>ninetynine</b><small>online</small></div></div>
-                <div class="chat-body" id="chatOne" style="height:330px">
-                  <div class="msg ai">saturday plans?</div>
-                  <div class="msg me">nothing lol. maybe the flea market</div>
-                  <div class="msg me">i have a plant problem</div>
-                  <div class="msg ai">how many plants are we talking</div>
+                <div class="bar-top"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><div><b>Ninty</b><small>online · up to no good</small></div></div>
+                <div class="chat-body" id="chatOne">
                   <div class="msg me">23</div>
-                  <div class="msg ai">ok that's not a problem that's a jungle 🌿</div>
+                  <div class="msg ai">that's not a hobby that's a cry for help 🌿</div>
+                  <div class="msg me">they're my kids</div>
+                  <div class="msg ai">ok so we need someone ready to be a step-parent to a fern</div>
+                  <div class="msg ai">i know people. leave it with me 😌</div>
                 </div>
                 <div class="composer"><span class="field" id="oneField"></span><span class="send"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></span></div>
               </div>
@@ -447,33 +441,31 @@
           </div>
         </article>
 
-        <!-- 2 -->
         <article class="beat flip">
           <div class="copy">
             <p class="who"><em>2</em>on us</p>
-            <h3>We send someone your way.</h3>
-            <p>Keep chatting and every now and then we'll go "hey, look who's around". Someone nearby who could be good for you. You say yes or nah. If you both say yes, it's on.</p>
-            <p class="side hand">nobody scrolls through you. ever.</p>
+            <h3>Ninty sends someone your way.</h3>
+            <p>Every now and then she'll slide in with "ok don't freak out but look who's around". Someone nearby who could be good for you. You say yes or nah. If you both say yes, it's on.</p>
+            <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>nobody scrolls through you. i'm very picky about who sees you</span></div>
           </div>
-          <div class="yes-scene" id="yesScene" role="img" aria-label="You say yes, Lea says yes, and the zones unlock.">
+          <div class="yes-scene" id="yesScene" role="img" aria-label="You say yes, Lea says yes, and Ninty celebrates.">
             <div class="pair" aria-hidden="true">
               <div class="person"><span class="av av-you"></span><b>you</b><span class="answer" id="ansA">yes!</span></div>
               <div class="link"><span class="heart" id="heart"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.2 0 3.6 1.2 5.2 3 1.6-1.8 3-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg></span></div>
-              <div class="person"><span class="av av-lea"></span><b>Lea</b><span class="answer" id="ansB">yes!</span></div>
+              <div class="person"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span><b>Lea</b><span class="answer" id="ansB">yes!</span></div>
             </div>
-            <span class="unlock-chip" id="chip" aria-hidden="true">it's on. zones unlocked 🔓</span>
+            <div class="nini-react" id="react" aria-hidden="true"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>SHE SAID YES. i'm screaming. go 🔓</span></div>
           </div>
         </article>
 
-        <!-- 3 -->
         <article class="beat yours">
           <div class="copy">
             <p class="who"><em>3</em>on you</p>
             <h3>Go find them.</h3>
-            <p>You each get a zone on the map. Not a pin, a big fuzzy circle. Head that way and it shrinks. Keep going, it shrinks again. Get close enough and the chat unlocks.</p>
-            <p class="side hand">basically a treasure hunt, but the treasure is a person</p>
+            <p>You each get a zone on the map. Not a pin, a big fuzzy circle. Head that way and it shrinks. Keep going, it shrinks again. Ninty cheers you on the whole way. Get close enough and the chat unlocks.</p>
+            <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>basically a treasure hunt but the treasure is hot</span></div>
           </div>
-          <div class="map" id="map" role="img" aria-label="A map. A big circle shows roughly where Lea is. As you walk toward it, the circle shrinks from about 2 km to about 60 m, then the chat unlocks.">
+          <div class="map" id="map" role="img" aria-label="A map. A big circle shows roughly where Lea is. As you walk toward it, the circle shrinks from about 2 km to about 60 m while Ninty cheers, then the chat unlocks.">
             <svg class="streets" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
               <path class="park" d="M70 70 C 80 64, 96 68, 98 80 C 99 92, 86 98, 76 95 C 66 92, 62 76, 70 70 Z"/>
               <path class="park" d="M6 8 C 16 4, 28 10, 26 20 C 24 28, 10 30, 6 22 Z"/>
@@ -488,34 +480,33 @@
               <path class="road" stroke-width="2" d="M-5 42 L 105 38"/>
               <path class="road" stroke-width="2" d="M-5 70 L 105 72"/>
             </svg>
-            <svg class="trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline id="trail" points="12,86 30,68"/></svg>
+            <svg class="trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline id="trail" points="12,86 32,66"/></svg>
             <div class="zone" id="zone"></div>
-            <div class="dot them" aria-hidden="true"><span class="av av-lea"></span></div>
+            <div class="dot them" aria-hidden="true"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span></div>
             <div class="dot you" id="you" aria-hidden="true"><span class="av av-you"></span><span class="tag">you</span></div>
             <div class="map-label" aria-hidden="true">Lea's somewhere in here <b id="dist">~900 m</b></div>
-            <div class="toast" aria-hidden="true">🔓 chat unlocked. say hi</div>
+            <div class="coach" aria-hidden="true"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span id="coach">warmer… 🔥</span></div>
           </div>
         </article>
 
-        <!-- 4 -->
         <article class="beat yours flip">
           <div class="copy">
             <p class="who"><em>4</em>on you</p>
             <h3>Say hi. You're already close.</h3>
             <p>By the time you can talk, you're a few streets apart. So "wanna grab a coffee" doesn't mean next Thursday. It means right now, around the corner.</p>
-            <p class="side hand">no more texting for 3 weeks then never meeting</p>
+            <div class="side"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><span>i'll leave you two alone. text me EVERYTHING after</span></div>
           </div>
           <div class="stage">
-            <div class="phone" role="img" aria-label="A chat between you and Lea after it unlocks. You figure out you're both near a bakery with a blue door and meet.">
+            <div class="phone" role="img" aria-label="A chat between you and Lea after it unlocks. You realise you're both at the bakery with the blue door and meet.">
               <div class="screen" aria-hidden="true">
-                <div class="bar-top"><span class="av av-lea"></span><div><b>Lea</b><small>close by</small></div></div>
+                <div class="bar-top"><span class="av av-lea"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg></span><div><b>Lea</b><small>close by</small></div></div>
                 <div class="chat-body" id="chatTwo">
                   <div class="msg them">ok i think im in the zone lol</div>
                   <div class="msg me">same. near the bakery w the blue door?</div>
                   <div class="msg them">wait yes</div>
                   <div class="msg them">green jacket??</div>
                   <div class="msg me">omg hi 👋</div>
-                  <div class="sys">you two met 💜</div>
+                  <div class="sys">Ninty left the chat to give you privacy 😌</div>
                 </div>
                 <div class="composer"><span class="field" id="twoField"></span><span class="send"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg></span></div>
               </div>
@@ -531,10 +522,10 @@
       <span class="kicker hand">the boring stuff? gone</span>
       <h2>Dating apps, minus the second job.</h2>
       <div class="swap-grid">
-        <div class="row"><span class="old">swiping until your thumb hurts</span><span class="arr">→</span><span class="new">chat, and we bring people to you</span></div>
+        <div class="row"><span class="old">swiping until your thumb hurts</span><span class="arr">→</span><span class="new">chat with Ninty, she brings people to you</span></div>
         <div class="row"><span class="old">a bio you rewrote 14 times</span><span class="arr">→</span><span class="new">no bio. you're more than 300 characters</span></div>
         <div class="row"><span class="old">"haha yeah" for three weeks</span><span class="arr">→</span><span class="new">you're already around the corner</span></div>
-        <div class="row"><span class="old">meeting a stranger from a screen</span><span class="arr">→</span><span class="new">meeting someone who was nearby all along</span></div>
+        <div class="row"><span class="old">an app that feels like a job interview</span><span class="arr">→</span><span class="new">a friend who makes you laugh first</span></div>
       </div>
     </div>
   </section>
@@ -544,9 +535,9 @@
       <span class="kicker hand">you're probably wondering</span>
       <h2>Quick questions</h2>
       <div class="faq-grid">
-        <div class="qa"><h3>Who am I chatting with?</h3><p>Us. Well, the app. It's friendly, it's curious and it won't judge your 2am snack choices. It talks the way you talk.</p></div>
+        <div class="qa"><h3>Who's Ninty?</h3><p>Your slightly unhinged best friend who happens to know everyone around you. Zero filter, zero judgment. Ok, a little judgment. Out of love.</p></div>
         <div class="qa"><h3>Can people see where I am?</h3><p>Never your exact spot. A match only sees a big fuzzy zone, and it only gets smaller as they actually walk closer. Walk away and it grows again.</p></div>
-        <div class="qa"><h3>Who sees me?</h3><p>Only the people we send your way, and only once you both said yes. There's no feed of faces to scroll.</p></div>
+        <div class="qa"><h3>Who sees me?</h3><p>Only the people Ninty sends your way, and only once you both said yes. There's no feed of faces to scroll.</p></div>
         <div class="qa"><h3>What does it cost?</h3><p>Free to start. Paid plans get you more matches a day.</p></div>
       </div>
     </div>
@@ -557,7 +548,7 @@
       <div class="closing-card">
         <span class="ring a"></span><span class="ring b"></span><span class="ring c"></span>
         <h2>Put the phone down.<br>Go say hi.</h2>
-        <p>ninetynine is coming soon. We're finishing our 99%.</p>
+        <p>ninetynine is coming soon. We're finishing our 99%. Ninty is already warming up.</p>
         <span class="hand">get ready for yours</span>
       </div>
     </div>
@@ -577,14 +568,12 @@
   if (reduce) return;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-  // only animate while a scene is on screen
-  const seen = new WeakMap();
-  const waiters = new WeakMap();
+  const seen = new WeakMap(), waiters = new WeakMap();
   const io = new IntersectionObserver(es => es.forEach(e => {
     seen.set(e.target, e.isIntersecting);
     if (e.isIntersecting && waiters.get(e.target)) { waiters.get(e.target)(); waiters.delete(e.target); }
   }), { threshold: 0.25 });
-  const watch = el => { io.observe(el); };
+  const watch = el => io.observe(el);
   const gate = el => seen.get(el) ? Promise.resolve() : new Promise(r => waiters.set(el, r));
 
   // 99% bar
@@ -596,6 +585,18 @@
     const tick = t => { const p = Math.min(1, (t - t0) / 2200); pct.textContent = Math.round(99 * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
   }, 500);
+
+  // Ninty's rotating one-liners
+  const quote = document.getElementById('quote');
+  const quotes = [
+    "you're not picky. you have taste. ok you're also picky",
+    "left on read since tuesday? we don't wait for men who type like that",
+    "you said you're 'low maintenance' and then sent me 4 voice notes",
+    "your type is literally 'emotionally unavailable with a nice jacket'. we're fixing that",
+    "drink some water. then let's talk about your love life"
+  ];
+  watch(quote);
+  (async () => { let i = 0; for (;;) { await sleep(3600); await gate(quote); quote.classList.add('swap'); await sleep(260); i = (i + 1) % quotes.length; quote.textContent = quotes[i]; quote.classList.remove('swap'); } })();
 
   // chat engine
   const el = (cls, text) => { const d = document.createElement('div'); d.className = cls; if (text) d.textContent = text; return d; };
@@ -611,47 +612,51 @@
       await sleep(400);
       for (const s of script) {
         await gate(scene);
-        if (s.sys) { await sleep(s.pause || 700); body.append(el('sys', s.sys)); await sleep(1200); continue; }
+        if (s.sys) { await sleep(s.pause || 700); body.append(el('sys', s.sys)); await sleep(1300); continue; }
         if (s.card) { await s.card(body); continue; }
+        const cls = 'msg ' + s.from + (s.big ? ' big' : '');
         if (s.from === 'me') {
           await sleep(s.pause || 500);
           await typeInto(field, s.text, scene);
-          body.append(el('msg me', s.text));
+          body.append(el(cls, s.text));
         } else {
           const t = el('typing'); t.innerHTML = '<i></i><i></i><i></i>';
           await sleep(s.pause || 300);
           body.append(t);
-          await sleep(650 + s.text.length * 16);
+          await sleep(600 + s.text.length * 15);
           t.remove();
-          body.append(el('msg ' + s.from, s.text));
+          body.append(el(cls, s.text));
         }
-        await sleep(s.hold || 600);
+        await sleep(s.hold || 650);
       }
-      await sleep(3600);
+      await sleep(3800);
     }
   }
 
   const matchCard = async body => {
     const c = el('mcard');
-    c.innerHTML = '<div class="mc-top"><span class="av av-lea"></span><div><b>Lea</b><small>somewhere around you</small></div></div>' +
-      '<div class="tags"><span>sunday market person</span><span>laughs at her own jokes</span><span>will steal your fries</span></div>' +
-      '<div class="mc-btns"><span>not today</span><span class="yes">yes!</span></div>';
+    c.innerHTML = '<div class="photo"><svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice"><use href="#lea"/></svg><span class="name">Lea, 26<small>somewhere around you</small></span></div>' +
+      '<div class="mc-in"><div class="tags"><span>sunday market person</span><span>will steal your fries</span></div>' +
+      '<div class="mc-btns"><span>not today</span><span class="yes">yes!</span></div></div>';
     body.append(c);
-    await sleep(2200);
+    await sleep(2600);
     const y = c.querySelector('.yes'); y.classList.add('pressed'); await sleep(220); y.classList.remove('pressed'); y.textContent = 'yes ✓';
     await sleep(900);
   };
 
   const hero = document.querySelector('.hero .phone');
   runChat(hero, document.getElementById('heroChat'), document.getElementById('heroField'), [
-    { from: 'ai', text: 'ok so what was the best part of your week' },
-    { from: 'me', text: 'honestly? burnt my pasta and still ate it lol' },
-    { from: 'ai', text: 'iconic 😂 who\'d you want at the table for that' },
-    { from: 'me', text: 'someone who\'d laugh at it w me' },
-    { from: 'me', text: 'and maybe bring wine', pause: 200 },
-    { from: 'ai', text: 'btw. think i found someone near you 👀', pause: 900 },
+    { from: 'ai', text: 'ok be honest. when did you last flirt with someone irl' },
+    { from: 'me', text: 'define flirt' },
+    { from: 'ai', text: 'oh no 💀', hold: 900 },
+    { from: 'ai', text: 'ok new question. best part of your week', pause: 100 },
+    { from: 'me', text: 'burnt my pasta and still ate it' },
+    { from: 'ai', text: 'a survivor. a warrior. a terrible cook' },
+    { from: 'me', text: 'wow ok' },
+    { from: 'ai', text: 'relax i\'d still eat it. anyway… found someone 👀' },
     { card: matchCard },
-    { sys: 'Lea said yes too 🎉 go find her', pause: 1000 }
+    { sys: 'Lea said yes too 🎉', pause: 900 },
+    { from: 'ai', text: 'GO. now. maybe shower first' }
   ]);
 
   const one = document.getElementById('chatOne');
@@ -659,10 +664,12 @@
     { from: 'ai', text: 'saturday plans?' },
     { from: 'me', text: 'nothing lol. maybe the flea market' },
     { from: 'me', text: 'i have a plant problem', pause: 200 },
-    { from: 'ai', text: 'how many plants are we talking' },
+    { from: 'ai', text: 'how many. be honest' },
     { from: 'me', text: '23' },
-    { from: 'ai', text: 'ok that\'s not a problem that\'s a jungle 🌿' },
-    { from: 'me', text: 'shhh they can hear you' }
+    { from: 'ai', text: 'that\'s not a hobby that\'s a cry for help 🌿' },
+    { from: 'me', text: 'they\'re my kids' },
+    { from: 'ai', text: 'ok so we need someone ready to be a step-parent to a fern' },
+    { from: 'ai', text: 'i know people. leave it with me 😌', pause: 100 }
   ]);
 
   const two = document.getElementById('chatTwo');
@@ -673,41 +680,42 @@
     { from: 'them', text: 'green jacket??', pause: 100 },
     { from: 'me', text: 'omg hi 👋' },
     { from: 'them', text: 'hiii' },
-    { sys: 'you two met 💜', pause: 900 }
+    { sys: 'Ninty left the chat to give you privacy 😌', pause: 900 }
   ]);
 
   // both say yes
   const ys = document.getElementById('yesScene');
-  const a = document.getElementById('ansA'), b = document.getElementById('ansB'), heart = document.getElementById('heart'), chip = document.getElementById('chip');
+  const a = document.getElementById('ansA'), b = document.getElementById('ansB'), heart = document.getElementById('heart'), react = document.getElementById('react');
   watch(ys);
   (async () => {
     for (;;) {
       await gate(ys);
       [a, b].forEach(x => { x.classList.add('wait'); x.textContent = '…'; });
-      heart.classList.add('off'); chip.classList.add('off');
+      heart.classList.add('off'); react.classList.add('off');
       await sleep(1200); await gate(ys);
       a.classList.remove('wait'); a.textContent = 'yes!';
       await sleep(1100); await gate(ys);
       b.classList.remove('wait'); b.textContent = 'yes!';
-      await sleep(500);
-      heart.classList.remove('off');
-      await sleep(400);
-      chip.classList.remove('off');
-      await sleep(3200);
+      await sleep(500); heart.classList.remove('off');
+      await sleep(450); react.classList.remove('off');
+      await sleep(3400);
     }
   })();
 
-  // shrinking zone map
-  const map = document.getElementById('map'), zone = document.getElementById('zone'), you = document.getElementById('you'), dist = document.getElementById('dist'), trail = document.getElementById('trail');
+  // shrinking zone map with Ninty coaching
+  const map = document.getElementById('map'), zone = document.getElementById('zone'), you = document.getElementById('you'), dist = document.getElementById('dist'), trail = document.getElementById('trail'), coach = document.getElementById('coach');
   const stages = [
-    { z: 92, cx: 58, cy: 42, you: [12, 86], d: 2100 },
-    { z: 58, cx: 62, cy: 38, you: [30, 68], d: 900 },
-    { z: 31, cx: 59, cy: 42, you: [45, 55], d: 250 },
-    { z: 13, cx: 61, cy: 40, you: [54, 47], d: 60 }
+    // Lea sits at (68, 30). Each zone contains her but is centred somewhere else,
+    // so she can be anywhere inside it, never at its middle.
+    { z: 92, cx: 50, cy: 50, you: [12, 86], d: 2100, say: 'ok go go go. move 🏃' },
+    { z: 58, cx: 60, cy: 42, you: [32, 66], d: 900, say: 'warmer… 🔥' },
+    { z: 31, cx: 73, cy: 36, you: [50, 48], d: 250, say: 'WARMER. fix your hair' },
+    { z: 13, cx: 65, cy: 32, you: [61, 38], d: 60, say: 'act natural. ACT NATURAL' }
   ];
   const fmt = m => m >= 1000 ? '~' + (m / 1000).toFixed(1) + ' km' : '~' + m + ' m';
   const setZone = s => { zone.style.width = s.z + '%'; zone.style.left = s.cx + '%'; zone.style.top = s.cy + '%'; };
   const setYou = p => { you.style.left = p[0] + '%'; you.style.top = p[1] + '%'; };
+  const say = async t => { coach.classList.add('swap'); await sleep(200); coach.textContent = t; coach.classList.remove('swap'); };
   const countTo = (from, to, ms) => new Promise(r => {
     const t0 = performance.now();
     const f = t => { const p = Math.min(1, (t - t0) / ms); const v = from + (to - from) * (1 - Math.pow(1 - p, 3)); dist.textContent = fmt(v >= 1000 ? Math.round(v / 100) * 100 : Math.round(v / 10) * 10 || 10); p < 1 ? requestAnimationFrame(f) : r(); };
@@ -718,22 +726,24 @@
     for (;;) {
       await gate(map);
       map.classList.add('snap'); map.classList.remove('unlocked');
-      setZone(stages[0]); setYou(stages[0].you); dist.textContent = fmt(stages[0].d);
-      let pts = [stages[0].you.join(',')]; trail.setAttribute('points', pts.join(' '));
+      setZone(stages[0]); setYou(stages[0].you); dist.textContent = fmt(stages[0].d); coach.textContent = stages[0].say;
+      const pts = [stages[0].you.join(',')]; trail.setAttribute('points', pts.join(' '));
       void map.offsetWidth; map.classList.remove('snap');
-      await sleep(1000);
+      await sleep(1200);
       for (let i = 1; i < stages.length; i++) {
         await gate(map);
         setYou(stages[i].you);
         await sleep(1750);
         pts.push(stages[i].you.join(',')); trail.setAttribute('points', pts.join(' '));
         setZone(stages[i]);
+        say(stages[i].say);
         await countTo(stages[i - 1].d, stages[i].d, 1000);
-        await sleep(500);
+        await sleep(700);
       }
       map.classList.add('unlocked');
       dist.textContent = 'right here';
-      await sleep(3800);
+      say('chat unlocked 🔓 say hi before i do');
+      await sleep(4000);
     }
   })();
 })();
