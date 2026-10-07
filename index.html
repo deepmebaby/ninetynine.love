@@ -206,7 +206,12 @@
   .st2 { right: 0; top: 52%; rotate: 6deg; animation-delay: -1.6s; }
   .st3 { left: 4%; bottom: 6%; rotate: 4deg; animation-delay: -3.2s; }
   @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
-  @media (max-width: 520px) { .st1 { left: -4px; top: 4%; } .st2 { right: -4px; } .st3 { display: none; } .sticker { font-size: 13px; } }
+  /* phones: stickers line up above the mockup instead of covering it (and Ninty's home) */
+  @media (max-width: 600px) {
+    .hero .stage { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 8px; }
+    .hero .sticker { position: static; font-size: 13px; padding: 6px 12px; }
+    .hero .phone { flex: 0 0 100%; max-width: 340px; margin-top: 10px; }
+  }
 
   /* meet Ninty */
   .meet { padding-block: 88px 24px; }
