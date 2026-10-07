@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ninetynine — we do 99%, you do the last 1%</title>
+  <meta name="description" content="Dating apps turned meeting people into a second job. ninetynine does the swiping, the small talk and the searching for you. You just talk to us, be yourself, and show up to meet someone real.">
+  <meta name="theme-color" content="#fbfaf8">
+  <link rel="canonical" href="https://ninetynine.love/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ninetynine.love/">
+  <meta property="og:title" content="ninetynine — we do 99%, you do the last 1%">
+  <meta property="og:description" content="No swiping. No small talk. No selling yourself. We do the 99%. You just show up.">
+  <meta property="og:image" content="https://ninetynine.love/assets/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="alternate" type="text/markdown" href="llms.txt" title="Plain-text summary of ninetynine">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "ninetynine",
+    "url": "https://ninetynine.love/",
+    "applicationCategory": "SocialNetworkingApplication",
+    "description": "ninetynine is a dating app without swiping. The user talks with an AI assistant about who they are and who they want to meet. From the conversation, ninetynine builds a profile in two parts: who the user is, and who the user is looking for. It matches people by fit, not by similarity: what one person is looking for must match who the other person is. When both people accept and are physically near each other, the chat opens so that they meet in real life instead of texting.",
+    "featureList": [
+      "A conversation replaces the profile form and the swipe",
+      "Each profile has two parts: who you are, and who you are looking for",
+      "Matches by fit: what you look for is who they are, not people who are alike",
+      "A personal introduction for each match",
+      "The chat opens when both people accept and are near each other",
+      "The exact location of a user is never shown to other users"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free to start. Paid plans give more matches each day."
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fbfaf8;
+      --surface: #ffffff;
+      --ink: #17131f;
+      --body: #4a4556;
+      --muted: #807a8c;
+      --line: #ebe7f0;
+      --violet: #5b3fa8;
+      --violet-soft: #efeafa;
+      --amber: #e39b2d;
+      --teal: #1f9a8a;
+      --coral: #e2674f;
+      --blue: #3d7be0;
+      --radius: 22px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+    h1, h2, h3, .display {
+      font-family: "Inter Tight", "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+
+    /* Nav */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 22px; padding-bottom: 22px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--ink); text-decoration: none;
+      font-weight: 500; letter-spacing: -0.01em;
+    }
+    .brand img { width: 32px; height: 32px; border-radius: 9px; }
+    .soon {
+      font-size: 13px; font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--violet-soft);
+      color: var(--violet);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding-top: clamp(48px, 10vh, 112px);
+      padding-bottom: 88px;
+      text-align: center;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; z-index: -1;
+      left: 50%; top: -120px;
+      width: min(1100px, 140vw); height: 640px;
+      transform: translateX(-50%);
+      background:
+        radial-gradient(closest-side at 35% 45%, rgba(91, 63, 168, 0.10), transparent),
+        radial-gradient(closest-side at 68% 55%, rgba(227, 155, 45, 0.10), transparent);
+      pointer-events: none;
+    }
+    h1 {
+      font-size: clamp(44px, 8.4vw, 96px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      margin-bottom: 28px;
+    }
+    h1 .one { color: var(--violet); }
+    .lede {
+      max-width: 34em;
+      margin: 0 auto 64px;
+      font-size: clamp(17px, 2.1vw, 20px);
+      color: var(--body);
+    }
+
+    /* 99% bar */
+    .bar { max-width: 860px; margin: 0 auto; text-align: left; }
+    .bar-head {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 14px;
+    }
+    .bar-count {
+      font-family: "Inter Tight", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--violet);
+      font-variant-numeric: tabular-nums;
+    }
+    .bar-you {
+      font-size: 15px; font-weight: 500;
+      color: var(--ink);
+    }
+    .track {
+      position: relative;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--line);
+    }
+    .fill {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 99%;
+      border-radius: 999px 0 0 999px;
+      background: linear-gradient(90deg, #8a72d1, var(--violet));
+    }
+    .fill.go { transition: width 2.4s var(--ease); }
+    .you-dot {
+      position: absolute; right: -4px; top: 50%;
+      width: 22px; height: 22px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: var(--amber);
+      border: 4px solid var(--bg);
+      box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.5);
+      animation: beacon 2.2s ease-out infinite;
+    }
+    @keyframes beacon {
+      0% { box-shadow: 0 0 0 0 rgba(227, 155, 45, 0.45); }
+      100% { box-shadow: 0 0 0 16px rgba(227, 155, 45, 0); }
+    }
+    .stages {
+      list-style: none;
+      display: flex; justify-content: space-between;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .stages li:last-child { color: var(--ink); font-weight: 500; }
+    @media (max-width: 640px) {
+      .stages li:not(:first-child):not(:last-child) { display: none; }
+    }
+
+    /* Sections */
+    section { padding: 88px 0; border-top: 1px solid var(--line); }
+    .eyebrow {
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 16ch;
+      margin-bottom: 20px;
+    }
+    .intro { max-width: 38em; font-size: 18px; margin-bottom: 48px; }
+    .intro + .intro { margin-top: -32px; }
+
+    .cards {
+      display: grid; gap: 14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .cards.four { grid-template-columns: repeat(4, 1fr); } .cards.three { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .card h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .card p { font-size: 16px; }
+    .no h3 { position: relative; display: inline-block; }
+    .no h3::after {
+      content: "";
+      position: absolute; left: -2px; right: -2px; top: 54%;
+      height: 2px;
+      background: var(--coral);
+      transform-origin: left;
+    }
+    .step-n {
+      display: inline-grid; place-items: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      margin-bottom: 18px;
+      background: var(--violet-soft);
+      color: var(--violet);
+      font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 15px;
+    }
+    .card.you-step { background: var(--ink); border-color: var(--ink); }
+    .card.you-step h3 { color: #fff; }
+    .card.you-step p { color: rgba(255, 255, 255, 0.72); }
+    .card.you-step .step-n { background: var(--amber); color: var(--ink); }
+
+    /* Shapes used by both diagrams. Filled = who someone is. Dashed outline = who someone is looking for. */
+    .shape { width: 30px; height: 30px; flex: none; display: block; }
+    .shape.sm { width: 22px; height: 22px; }
+    .shape .is { stroke: none; }
+    .shape .wants { fill: none; stroke-width: 2.4; stroke-dasharray: 4 3.2; }
+    .c-violet { color: var(--violet); }
+    .c-amber { color: var(--amber); }
+    .c-teal { color: var(--teal); }
+    .c-coral { color: var(--coral); }
+    .c-blue { color: var(--blue); }
+
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 10px 24px;
+      margin-bottom: 20px;
+      font-size: 14px; color: var(--muted);
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: clamp(20px, 4vw, 44px);
+    }
+
+    /* Diagram 1: conversation to profile */
+    .talk {
+      display: grid; gap: 28px; align-items: center;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) { .talk { grid-template-columns: 1.15fr auto 1fr; gap: 36px; } }
+    .bubbles { display: flex; flex-direction: column; gap: 12px; }
+    .bubble {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      max-width: 440px;
+      padding: 12px 14px 12px 18px;
+      border-radius: 20px 20px 20px 6px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    .bubble:nth-child(even) { margin-left: 28px; }
+    .flow {
+      display: grid; place-items: center;
+      color: var(--muted);
+    }
+    .flow svg { width: 56px; height: 24px; }
+    @media (max-width: 859px) { .flow svg { transform: rotate(90deg); } }
+    .flow-line { stroke-dasharray: 5 5; animation: flow 1.2s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -10; } }
+
+    .profile {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      padding: 22px;
+      background: linear-gradient(180deg, #ffffff, #faf8fd);
+    }
+    .profile-title {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 500; color: var(--ink);
+      margin-bottom: 18px;
+    }
+    .avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: conic-gradient(from 200deg, var(--violet), var(--amber), var(--teal), var(--violet));
+    }
+    .row-label { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .row { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+    .row:last-child { margin-bottom: 0; }
+    .ghost { opacity: 0.18; }
+
+    /* Diagram 2: alike vs fit */
+    .compare {
+      display: grid; gap: 14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px) { .compare { grid-template-columns: 1fr 1.25fr; } }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px 24px;
+      background: var(--surface);
+    }
+    .panel.dim { background: transparent; }
+    .panel h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .panel .tag {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 22px; color: var(--muted);
+    }
+    .panel.fit .tag { color: var(--violet); }
+    .pair {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .who {
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      padding: 14px;
+      min-width: 0;
+    }
+    .who-name { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .who .row { margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
+    .who .row:last-child { margin-bottom: 0; }
+    .link {
+      display: grid; place-items: center;
+      font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 22px;
+      color: var(--muted);
+    }
+    .panel.fit .link { color: var(--violet); }
+    .link svg { width: 46px; height: 46px; }
+    .panel p { font-size: 16px; }
+    .panel.fit .who { background: var(--violet-soft); border-color: transparent; }
+
+    .quote {
+      margin-top: 48px;
+      max-width: 22ch;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+    }
+    .quote span { color: var(--violet); }
+
+    /* Real life */
+    .real { background: var(--ink); border-top: none; }
+    .real .eyebrow { color: var(--amber); }
+    .real h2 { color: #fff; }
+    .real .intro { color: rgba(255, 255, 255, 0.72); margin-bottom: 40px; }
+    .big {
+      font-size: clamp(44px, 8vw, 96px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      color: #fff;
+    }
+    .big span { color: var(--amber); }
+    .real + section { border-top: none; }
+
+    /* Questions */
+    .faq { max-width: 760px; }
+    .faq div { padding: 24px 0; border-bottom: 1px solid var(--line); }
+    .faq div:first-child { border-top: 1px solid var(--line); }
+    .faq dt { font-family: "Inter Tight", sans-serif; font-weight: 600; font-size: 19px; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 6px; }
+
+    /* Closing */
+    .closing { text-align: center; }
+    .closing h2 { margin: 0 auto 16px; max-width: 18ch; }
+    .closing p { margin: 0 auto; max-width: 30em; font-size: 18px; }
+
+    footer {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      padding-top: 28px; padding-bottom: max(32px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line);
+      font-size: 14px; color: var(--muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="circle"><circle cx="16" cy="16" r="12" /></g>
+      <g id="square"><rect x="5" y="5" width="22" height="22" rx="5" /></g>
+      <g id="triangle"><path d="M16 4.5 L28 26.5 H4 Z" stroke-linejoin="round" /></g>
+      <g id="star"><path d="M16 3.5 L19.6 11.6 L28.4 12.4 L21.7 18.2 L23.7 26.8 L16 22.3 L8.3 26.8 L10.3 18.2 L3.6 12.4 L12.4 11.6 Z" stroke-linejoin="round" /></g>
+      <g id="diamond"><path d="M16 3 L29 16 L16 29 L3 16 Z" stroke-linejoin="round" /></g>
+    </defs>
+  </svg>
+
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top"><img src="assets/apple-touch-icon.png" alt="" width="32" height="32">ninetynine</a>
+      <span class="soon">Coming soon</span>
+    </nav>
+
+    <header class="hero" id="top">
+      <h1>We do 99%.<br>You do <span class="one">the last 1%.</span></h1>
+      <p class="lede">Dating apps turned meeting someone into a second job: swiping, small talk, waiting, ghosting. We take all of that off your hands. You talk to us, you stay yourself, and you show up. In real life.</p>
+
+      <div class="bar" role="img" aria-label="A progress bar at 99 percent. ninetynine does the searching, the sorting and the introduction. The last 1 percent is yours: you show up and meet the person.">
+        <div class="bar-head">
+          <span class="bar-count"><span id="count">99</span>% done by us</span>
+          <span class="bar-you">1% · you show up</span>
+        </div>
+        <div class="track">
+          <div class="fill" id="fill"></div>
+          <span class="you-dot"></span>
+        </div>
+        <ol class="stages">
+          <li>You talk</li>
+          <li>We get you</li>
+          <li>We search</li>
+          <li>We find the one who fits</li>
+          <li>You show up</li>
+        </ol>
+      </div>
+    </header>
+  </div>
+
+  <main>
+    <section id="without">
+      <div class="wrap">
+        <p class="eyebrow">What we take off your hands</p>
+        <h2>We do the boring part. All of it.</h2>
+        <div class="cards four">
+          <article class="card no">
+            <h3>Swiping</h3>
+            <p>Your thumb can retire. No more judging a stack of faces, and no more being judged in half a second.</p>
+          </article>
+          <article class="card no">
+            <h3>Small talk</h3>
+            <p>No “hey”. No “wyd”. No three weeks of chat that go nowhere. We already did the getting-to-know part.</p>
+          </article>
+          <article class="card no">
+            <h3>Selling yourself</h3>
+            <p>No bio to polish. No best angle. No fake version of you. You are not a product on a shelf.</p>
+          </article>
+          <article class="card no">
+            <h3>Pen pals</h3>
+            <p>When you both say yes and you are close by, that is it. You meet. Not next month. Now.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="real" class="real">
+      <div class="wrap">
+        <p class="eyebrow">Why we do this</p>
+        <h2>People need people. Not screens.</h2>
+        <p class="intro">A match on a screen is not a date. A coffee is. A walk is. A laugh across a table is. Real chemistry happens in the same room, not in a chat window. So we do everything that keeps you on your phone, and we give you back the part that matters: the moment you meet.</p>
+        <p class="big display">Less scrolling.<br><span>More living.</span></p>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps. We do two of them.</h2>
+        <div class="cards three">
+          <article class="card">
+            <span class="step-n">1</span>
+            <h3>Talk to us</h3>
+            <p>Like you would talk to a friend. Who you are, who you want. No forms, no checkboxes, no bio.</p>
+          </article>
+          <article class="card">
+            <span class="step-n">2</span>
+            <h3>We do the work</h3>
+            <p>We search every day, near you, while you live your life. We only bring you people who truly fit, and we tell you why.</p>
+          </article>
+          <article class="card you-step">
+            <span class="step-n">3</span>
+            <h3>You show up</h3>
+            <p>You both say yes, you are close by, the chat opens. Go meet them. That is your 1%.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile">
+      <div class="wrap">
+        <p class="eyebrow">Your profile</p>
+        <h2>Just talk. We get you.</h2>
+        <p class="intro">No form to fill, ever. Everything you tell us teaches us two things: who you are, and who you are looking for. The more you talk, the better we know you.</p>
+
+        <figure class="diagram" aria-label="Four sentences from a conversation become shapes in a profile. Two sentences describe the person and become filled shapes under 'who you are'. Two sentences describe the person they want and become dashed shapes under 'who you are looking for'.">
+          <div class="legend">
+            <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>Who someone is</span>
+            <span><svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="wants" stroke="currentColor"/></svg>Who someone is looking for</span>
+          </div>
+          <div class="talk">
+            <div class="bubbles">
+              <p class="bubble">I cook for my friends every Sunday. <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg></p>
+              <p class="bubble">I want someone who makes me laugh. <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg></p>
+              <p class="bubble">I’m more of a quiet night in. <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg></p>
+              <p class="bubble">Someone curious, who loves to travel. <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg></p>
+            </div>
+            <div class="flow" aria-hidden="true">
+              <svg viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path class="flow-line" d="M2 12 H46"/><path d="M42 5 L51 12 L42 19"/></svg>
+            </div>
+            <div class="profile">
+              <div class="profile-title"><span class="avatar"></span>Your profile</div>
+              <p class="row-label">Who you are</p>
+              <div class="row">
+                <svg class="shape c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                <svg class="shape c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                <svg class="shape c-blue ghost" viewBox="0 0 32 32"><use href="#diamond" class="is" fill="currentColor"/></svg>
+              </div>
+              <p class="row-label">Who you are looking for</p>
+              <div class="row">
+                <svg class="shape c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
+                <svg class="shape c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
+                <svg class="shape c-blue ghost" viewBox="0 0 32 32"><use href="#diamond" class="wants" stroke="currentColor"/></svg>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="fit">
+      <div class="wrap">
+        <p class="eyebrow">How we match</p>
+        <h2>Not the same. A fit.</h2>
+        <p class="intro">Other apps match you with your clone: same hobbies, same answers, same everything. Chemistry does not work like that. We look for the person who is exactly what you are looking for, even if they are nothing like you. And who is looking for exactly someone like you.</p>
+
+        <div class="compare">
+          <figure class="panel dim" aria-label="Matching by similarity: two profiles with the same filled shapes.">
+            <p class="tag">Most apps</p>
+            <h3>Alike</h3>
+            <div class="pair">
+              <div class="who">
+                <p class="who-name">You are</p>
+                <div class="row">
+                  <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                  <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                </div>
+              </div>
+              <span class="link">=</span>
+              <div class="who">
+                <p class="who-name">They are</p>
+                <div class="row">
+                  <svg class="shape sm c-violet" viewBox="0 0 32 32"><use href="#circle" class="is" fill="currentColor"/></svg>
+                  <svg class="shape sm c-teal" viewBox="0 0 32 32"><use href="#square" class="is" fill="currentColor"/></svg>
+                </div>
+              </div>
+            </div>
+            <p>Same answers, same hobbies. Looks great on paper. Then you meet, and there is nothing there.</p>
+          </figure>
+
+          <figure class="panel fit" aria-label="Matching by fit: the dashed shapes that you are looking for are the same as the filled shapes of who they are.">
+            <p class="tag">ninetynine</p>
+            <h3>A fit</h3>
+            <div class="pair">
+              <div class="who">
+                <p class="who-name">You are looking for</p>
+                <div class="row">
+                  <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="wants" stroke="currentColor"/></svg>
+                  <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="wants" stroke="currentColor"/></svg>
+                </div>
+              </div>
+              <span class="link" aria-hidden="true">
+                <svg viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="flow-line" d="M6 23 H38"/><path d="M33 17 L40 23 L33 29"/></svg>
+              </span>
+              <div class="who">
+                <p class="who-name">They are</p>
+                <div class="row">
+                  <svg class="shape sm c-amber" viewBox="0 0 32 32"><use href="#star" class="is" fill="currentColor"/></svg>
+                  <svg class="shape sm c-coral" viewBox="0 0 32 32"><use href="#triangle" class="is" fill="currentColor"/></svg>
+                </div>
+              </div>
+            </div>
+            <p>What you want is who they are. You can be completely different people and still click. And they choose you too, so every match is a yes from both sides.</p>
+          </figure>
+        </div>
+
+        <p class="quote display">You do not need to be alike. <span>You need to be what the other person is looking for.</span></p>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="wrap">
+        <p class="eyebrow">Questions</p>
+        <h2>Good to know.</h2>
+        <dl class="faq">
+          <div>
+            <dt>Who do I talk to?</dt>
+            <dd>Our assistant. It is an AI that listens, asks the right questions and remembers what matters to you. Talk to it like you would talk to a friend.</dd>
+          </div>
+          <div>
+            <dt>Who can see my profile?</dt>
+            <dd>Nobody browses through people on ninetynine. A person sees your profile only when we think you two fit.</dd>
+          </div>
+          <div>
+            <dt>Is my location private?</dt>
+            <dd>Yes. We never show your exact location to anybody. Before you meet, the other person sees only an approximate area.</dd>
+          </div>
+          <div>
+            <dt>What does it cost?</dt>
+            <dd>ninetynine is free to start. Paid plans give you more matches each day.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap">
+        <h2>Put the phone down. Go meet someone.</h2>
+        <p>ninetynine is coming soon. We are finishing our 99%. Get ready for yours.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="wrap">
+    <footer>
+      <a class="brand" href="#top"><img src="assets/apple-touch-icon.png" alt="" width="32" height="32">ninetynine</a>
+      <span>ninetynine.love · &copy; 2026</span>
+    </footer>
+  </div>
+
+  <script>
+    // The bar starts complete in the HTML, so it is correct without JS. With JS, it fills from 0 to 99 once.
+    (() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const fill = document.getElementById("fill");
+      const count = document.getElementById("count");
+      fill.style.width = "0%";
+      count.textContent = "0";
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fill.classList.add("go");
+        fill.style.width = "99%";
+        let start;
+        const step = (now) => {
+          start ??= now;
+          const t = Math.min((now - start) / 2400, 1);
+          count.textContent = Math.round(99 * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }));
+    })();
+  </script>
+</body>
+</html>

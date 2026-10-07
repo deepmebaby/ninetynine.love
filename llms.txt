@@ -1,0 +1,35 @@
+# ninetynine
+
+> ninetynine is a dating app without swiping. We do 99% of the work of dating: the searching, the sorting, the small talk. The user does the last 1%: they show up and meet the person in real life. ninetynine is coming soon.
+
+## The problem
+
+Dating apps turned meeting someone into a second job: swiping, small talk, waiting, ghosting. People spend hours on their phones and rarely meet anyone.
+
+## What ninetynine takes off your hands
+
+- Swiping: no stack of faces to judge, and nobody judges you in half a second.
+- Small talk: no "hey", no weeks of chat that go nowhere.
+- Selling yourself: no bio to polish, no best angle, no fake version of you.
+- Pen pals: when both people say yes and are close by, they meet.
+
+## Why
+
+People need people, not screens. A match on a screen is not a date; a coffee is. ninetynine does everything that keeps users on their phone, and gives back the moment that matters: when two people meet in person.
+
+## How it works
+
+1. Talk to us: the user talks with our assistant, an AI, like with a friend. No forms, no checkboxes, no bio.
+2. We do the work: from the conversation we learn two things, who the user is and who they are looking for. We search every day near the user and only bring people who fit, with the reason why.
+3. You show up: when both people say yes and are close by, the chat opens. They go and meet. That is the 1%.
+
+## How we match: a fit, not a clone
+
+Other apps match people who look alike: same hobbies, same answers. ninetynine matches by fit: what one person is looking for must be who the other person is. Two people can be very different and still click. Both people choose, so every match is a yes from both sides.
+
+## Good to know
+
+- Who do I talk to? Our assistant, an AI that listens, asks the right questions and remembers what matters.
+- Who can see my profile? Nobody browses people on ninetynine. A person sees your profile only when we think you fit.
+- Is my location private? Yes. Nobody sees your exact location. Before you meet, the other person sees only an approximate area.
+- What does it cost? Free to start. Paid plans give more matches each day.
