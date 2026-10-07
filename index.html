@@ -1,5 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>ninetynine with Ninty</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ninetynine · we do 99%, you do the last 1%</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -91,7 +95,8 @@
   /* nav */
   nav { display: flex; align-items: center; justify-content: space-between; padding-block: 20px; }
   .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 20px; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
-  .logo { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--violet); color: #fff; font-size: 15px; font-weight: 800; letter-spacing: -0.04em; transform: rotate(-6deg); }
+  .logo { width: 34px; height: 34px; border-radius: 11px; display: block; flex: none; background: var(--violet); transform: rotate(-6deg); }
+  .logo svg { display: block; width: 100%; height: 100%; fill: #fff; }
   .soon { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 999px; background: var(--violet-soft); color: var(--violet); }
   .soon i { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: ping 1.8s ease-out infinite; }
   @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 55%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
@@ -150,6 +155,33 @@
   .composer .field:empty::before { content: "say anything"; color: var(--muted); }
   .composer .send { width: 38px; height: 38px; border-radius: 50%; background: var(--violet); flex: none; display: grid; place-items: center; }
   .composer .send svg { width: 16px; height: 16px; }
+
+
+  /* Ninty's top bar: the bar is his zone, the round frame is his little home */
+  .nbar { position: relative; z-index: 2; }
+  .home { position: relative; width: 36px; height: 36px; flex: none; border-radius: 50%; background: var(--violet-soft); }
+  .home::before { content: ""; position: absolute; left: 5px; right: 5px; top: 8px; bottom: 6px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 20%, var(--violet-soft)); }
+  .home-lip { position: absolute; left: 0; top: 18px; width: 36px; height: 18px; z-index: 4; border-radius: 0 0 18px 18px; background: var(--violet-soft); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--violet) 30%, transparent); pointer-events: none; }
+  .nbar > div { min-width: 0; }
+  .nbar small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sprite { position: absolute; left: 18px; top: 10px; width: 32px; height: 32px; z-index: 6; --spd: .55s;
+    transition: left var(--spd) var(--ease), top calc(var(--spd) * .7) var(--ease), clip-path calc(var(--spd) * .7) var(--ease);
+    clip-path: polygon(-300% -300%, 400% -300%, 400% 400px, -300% 400px); }
+  .sprite[data-act="home"], .sprite[data-act="smirk"], .sprite[data-act="shock"], .sprite[data-act="sad"], .sprite[data-act="hide"] { z-index: 3; }
+  .spr-inner { display: block; width: 100%; height: 100%; transform-origin: 50% 0; transition: scale .2s cubic-bezier(.2, 1.8, .4, 1); }
+  .spr-inner svg { display: block; width: 100%; height: 100%; overflow: visible; animation: sbob 2.4s ease-in-out infinite; }
+  @keyframes sbob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+  .sprite[data-act="love"] svg, .sprite[data-act="hyped"] svg { animation: sbounce .5s ease-in-out infinite; }
+  @keyframes sbounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .sprite[data-act="shock"] svg { animation: shiver .12s linear infinite; }
+  @keyframes shiver { 0%, 100% { transform: translateX(-1px); } 50% { transform: translateX(1px); } }
+  .sprite[data-act="smirk"] svg { animation: none; transform: rotate(14deg) translateX(2px); transition: transform .3s; }
+  .sprite[data-act="judge"] svg { animation: none; }
+  .sprite[data-act="sad"] svg { animation-duration: 5s; }
+  .sprite[data-act="boo"] .spr-inner { scale: 2.1; }
+  .spr-inner.fx-shake { animation: shake .45s linear; } .spr-inner.fx-jolt { animation: jolt .4s cubic-bezier(.2,1.8,.4,1); } .spr-inner.fx-pop { animation: popfx .6s var(--bounce); }
+  .boo-txt { position: absolute; left: 92px; top: 44px; z-index: 7; font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: -0.03em; color: #e0393e; rotate: -10deg; scale: 0; opacity: 0; transition: scale .25s var(--bounce), opacity .15s; pointer-events: none; }
+  .boo-txt.on { scale: 1; opacity: 1; }
 
   /* match card with photo */
   .mcard { align-self: flex-start; width: 90%; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); animation: pop .5s var(--bounce) both; flex: none; }
@@ -309,7 +341,17 @@
     html { scroll-behavior: auto; }
   }
 </style>
-
+<meta name="description" content="Chat with Ninty, your slightly unhinged AI best friend. He finds someone near you who's actually your type. Then you go find them, for real.">
+<meta name="theme-color" content="#fbfaf8">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ninetynine · we do 99%, you do the last 1%">
+<meta property="og:description" content="Chat with Ninty. Get matched with someone nearby. Follow the zone. Say hi.">
+<meta property="og:image" content="apple-touch-icon.png">
+</head>
+<body>
 <!-- reusable drawings -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -350,7 +392,7 @@
 
 <div class="wrap">
   <nav>
-    <a class="brand" href="#top"><span class="logo">99</span>ninetynine</a>
+    <a class="brand" href="#top"><span class="logo"><svg viewBox="0 0 34 34" aria-hidden="true"><path transform="translate(7.745 21.950) scale(0.015 -0.015)" d="M303.17877197265625 -15.9285888671875Q250.3572998046875 -15.9285888671875 206.76803588867188 -4.89288330078125Q163.17877197265625 6.142822265625 130.5716552734375 28.267791748046875Q97.96453857421875 50.39276123046875 76.55380249023438 83.67840576171875Q55.14306640625 116.96405029296875 47.6429443359375 161.42822265625L197.67864990234375 200.5712890625Q204.4287109375 175.428466796875 216.32159423828125 159.33920288085938Q228.2144775390625 143.24993896484375 242.73233032226562 134.19638061523438Q257.25018310546875 125.142822265625 273.285888671875 121.60711669921875Q289.32159423828125 118.0714111328125 305.285888671875 118.0714111328125Q344.0716552734375 118.0714111328125 372.4109802246094 134.5Q400.75030517578125 150.9285888671875 418.214599609375 179.857177734375Q435.67889404296875 208.7857666015625 444.1610412597656 248.1429443359375Q452.6431884765625 287.5001220703125 452.6431884765625 332.39300537109375Q453 344.5 369.5 286.5Q340 266 306.5 257.5Q273 249 243 249Q191.39300537109375 249 145.39300537109375 272.0Q99.39300537109375 295 70.89300537109375 340.0Q42.39300537109375 385 42.39300537109375 451Q42.39300537109375 489.96429443359375 55.375152587890625 529.9285888671875Q68.3572998046875 569.8928833007812 97.83944702148438 603.3750305175781Q127.32159423828125 636.857177734375 176.80374145507812 656.8750305175781Q226.285888671875 676.8928833007812 299.25018310546875 676.8928833007812Q402.000244140625 676.8928833007812 471.39312744140625 635.3928833007812Q540.7860107421875 593.8928833007812 576.714599609375 515.4285888671875Q612.6431884765625 436.96429443359375 612.6431884765625 327.03570556640625Q612.6431884765625 211.0714111328125 574.6967468261719 134.58926391601562Q536.7503051757812 58.10711669921875 467.357421875 21.089263916015625Q397.96453857421875 -15.9285888671875 303.17877197265625 -15.9285888671875ZM302.17877197265625 359.10711669921875Q331.2144775390625 359.10711669921875 355.6252136230469 372.0714111328125Q380.03594970703125 385.03570556640625 394.9288330078125 408.0Q409.82171630859375 430.96429443359375 409.82171630859375 461.89288330078125Q409.82171630859375 493.67864990234375 393.9823913574219 512.6786499023438Q378.14306640625 531.6786499023438 354.7144775390625 540.2679138183594Q331.285888671875 548.857177734375 308.0716552734375 548.857177734375Q286.10736083984375 548.857177734375 267.1609191894531 542.357177734375Q248.2144775390625 535.857177734375 234.26803588867188 523.357177734375Q220.32159423828125 510.857177734375 212.3572998046875 493.39288330078125Q204.39300537109375 475.9285888671875 204.39300537109375 454Q204.39300537109375 426 217.33944702148438 404.5178527832031Q230.285888671875 383.03570556640625 252.23233032226562 371.0714111328125Q274.17877197265625 359.10711669921875 302.17877197265625 359.10711669921875Z"/><path transform="translate(17.000 21.950) scale(0.015 -0.015)" d="M303.17877197265625 -15.9285888671875Q250.3572998046875 -15.9285888671875 206.76803588867188 -4.89288330078125Q163.17877197265625 6.142822265625 130.5716552734375 28.267791748046875Q97.96453857421875 50.39276123046875 76.55380249023438 83.67840576171875Q55.14306640625 116.96405029296875 47.6429443359375 161.42822265625L197.67864990234375 200.5712890625Q204.4287109375 175.428466796875 216.32159423828125 159.33920288085938Q228.2144775390625 143.24993896484375 242.73233032226562 134.19638061523438Q257.25018310546875 125.142822265625 273.285888671875 121.60711669921875Q289.32159423828125 118.0714111328125 305.285888671875 118.0714111328125Q344.0716552734375 118.0714111328125 372.4109802246094 134.5Q400.75030517578125 150.9285888671875 418.214599609375 179.857177734375Q435.67889404296875 208.7857666015625 444.1610412597656 248.1429443359375Q452.6431884765625 287.5001220703125 452.6431884765625 332.39300537109375Q453 344.5 369.5 286.5Q340 266 306.5 257.5Q273 249 243 249Q191.39300537109375 249 145.39300537109375 272.0Q99.39300537109375 295 70.89300537109375 340.0Q42.39300537109375 385 42.39300537109375 451Q42.39300537109375 489.96429443359375 55.375152587890625 529.9285888671875Q68.3572998046875 569.8928833007812 97.83944702148438 603.3750305175781Q127.32159423828125 636.857177734375 176.80374145507812 656.8750305175781Q226.285888671875 676.8928833007812 299.25018310546875 676.8928833007812Q402.000244140625 676.8928833007812 471.39312744140625 635.3928833007812Q540.7860107421875 593.8928833007812 576.714599609375 515.4285888671875Q612.6431884765625 436.96429443359375 612.6431884765625 327.03570556640625Q612.6431884765625 211.0714111328125 574.6967468261719 134.58926391601562Q536.7503051757812 58.10711669921875 467.357421875 21.089263916015625Q397.96453857421875 -15.9285888671875 303.17877197265625 -15.9285888671875ZM302.17877197265625 359.10711669921875Q331.2144775390625 359.10711669921875 355.6252136230469 372.0714111328125Q380.03594970703125 385.03570556640625 394.9288330078125 408.0Q409.82171630859375 430.96429443359375 409.82171630859375 461.89288330078125Q409.82171630859375 493.67864990234375 393.9823913574219 512.6786499023438Q378.14306640625 531.6786499023438 354.7144775390625 540.2679138183594Q331.285888671875 548.857177734375 308.0716552734375 548.857177734375Q286.10736083984375 548.857177734375 267.1609191894531 542.357177734375Q248.2144775390625 535.857177734375 234.26803588867188 523.357177734375Q220.32159423828125 510.857177734375 212.3572998046875 493.39288330078125Q204.39300537109375 475.9285888671875 204.39300537109375 454Q204.39300537109375 426 217.33944702148438 404.5178527832031Q230.285888671875 383.03570556640625 252.23233032226562 371.0714111328125Q274.17877197265625 359.10711669921875 302.17877197265625 359.10711669921875Z"/></svg></span>ninetynine</a>
     <span class="soon"><i></i>coming soon</span>
   </nav>
 
@@ -372,7 +414,7 @@
       <span class="sticker st3"><s>3 weeks of "haha yeah"</s></span>
       <div class="phone" role="img" aria-label="A chat with Ninty. He roasts your flirting and your cooking, then shows you Lea, a woman nearby, with her photo. You say yes and Lea says yes too.">
         <div class="screen" aria-hidden="true">
-          <div class="bar-top"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><div><b>Ninty</b><small>online · judging you lovingly</small></div></div>
+          <div class="bar-top nbar"><span class="home"><span class="home-lip"></span></span><span class="sprite" data-act="home"><span class="spr-inner" data-mood="happy"></span></span><span class="boo-txt">BOO!</span><div><b>Ninty</b><small>online · judging you lovingly</small></div></div>
           <div class="chat-body" id="heroChat">
             <div class="msg ai">a survivor. a warrior. a terrible cook</div>
             <div class="msg me">wow ok</div>
@@ -443,7 +485,7 @@
           <div class="stage">
             <div class="phone" role="img" aria-label="Ninty teasing you about owning 23 plants.">
               <div class="screen" aria-hidden="true">
-                <div class="bar-top"><span class="av av-nini"><svg class="nini-svg" viewBox="0 0 200 200"><use href="#nini"/></svg></span><div><b>Ninty</b><small>online · up to no good</small></div></div>
+                <div class="bar-top nbar"><span class="home"><span class="home-lip"></span></span><span class="sprite" data-act="home"><span class="spr-inner" data-mood="happy"></span></span><span class="boo-txt">BOO!</span><div><b>Ninty</b><small>online · up to no good</small></div></div>
                 <div class="chat-body" id="chatOne">
                   <div class="msg me">23</div>
                   <div class="msg ai">that's not a hobby that's a cry for help 🌿</div>
@@ -573,13 +615,20 @@
 
 <div class="wrap">
   <footer>
-    <a class="brand" href="#top"><span class="logo">99</span>ninetynine</a>
+    <a class="brand" href="#top"><span class="logo"><svg viewBox="0 0 34 34" aria-hidden="true"><path transform="translate(7.745 21.950) scale(0.015 -0.015)" d="M303.17877197265625 -15.9285888671875Q250.3572998046875 -15.9285888671875 206.76803588867188 -4.89288330078125Q163.17877197265625 6.142822265625 130.5716552734375 28.267791748046875Q97.96453857421875 50.39276123046875 76.55380249023438 83.67840576171875Q55.14306640625 116.96405029296875 47.6429443359375 161.42822265625L197.67864990234375 200.5712890625Q204.4287109375 175.428466796875 216.32159423828125 159.33920288085938Q228.2144775390625 143.24993896484375 242.73233032226562 134.19638061523438Q257.25018310546875 125.142822265625 273.285888671875 121.60711669921875Q289.32159423828125 118.0714111328125 305.285888671875 118.0714111328125Q344.0716552734375 118.0714111328125 372.4109802246094 134.5Q400.75030517578125 150.9285888671875 418.214599609375 179.857177734375Q435.67889404296875 208.7857666015625 444.1610412597656 248.1429443359375Q452.6431884765625 287.5001220703125 452.6431884765625 332.39300537109375Q453 344.5 369.5 286.5Q340 266 306.5 257.5Q273 249 243 249Q191.39300537109375 249 145.39300537109375 272.0Q99.39300537109375 295 70.89300537109375 340.0Q42.39300537109375 385 42.39300537109375 451Q42.39300537109375 489.96429443359375 55.375152587890625 529.9285888671875Q68.3572998046875 569.8928833007812 97.83944702148438 603.3750305175781Q127.32159423828125 636.857177734375 176.80374145507812 656.8750305175781Q226.285888671875 676.8928833007812 299.25018310546875 676.8928833007812Q402.000244140625 676.8928833007812 471.39312744140625 635.3928833007812Q540.7860107421875 593.8928833007812 576.714599609375 515.4285888671875Q612.6431884765625 436.96429443359375 612.6431884765625 327.03570556640625Q612.6431884765625 211.0714111328125 574.6967468261719 134.58926391601562Q536.7503051757812 58.10711669921875 467.357421875 21.089263916015625Q397.96453857421875 -15.9285888671875 303.17877197265625 -15.9285888671875ZM302.17877197265625 359.10711669921875Q331.2144775390625 359.10711669921875 355.6252136230469 372.0714111328125Q380.03594970703125 385.03570556640625 394.9288330078125 408.0Q409.82171630859375 430.96429443359375 409.82171630859375 461.89288330078125Q409.82171630859375 493.67864990234375 393.9823913574219 512.6786499023438Q378.14306640625 531.6786499023438 354.7144775390625 540.2679138183594Q331.285888671875 548.857177734375 308.0716552734375 548.857177734375Q286.10736083984375 548.857177734375 267.1609191894531 542.357177734375Q248.2144775390625 535.857177734375 234.26803588867188 523.357177734375Q220.32159423828125 510.857177734375 212.3572998046875 493.39288330078125Q204.39300537109375 475.9285888671875 204.39300537109375 454Q204.39300537109375 426 217.33944702148438 404.5178527832031Q230.285888671875 383.03570556640625 252.23233032226562 371.0714111328125Q274.17877197265625 359.10711669921875 302.17877197265625 359.10711669921875Z"/><path transform="translate(17.000 21.950) scale(0.015 -0.015)" d="M303.17877197265625 -15.9285888671875Q250.3572998046875 -15.9285888671875 206.76803588867188 -4.89288330078125Q163.17877197265625 6.142822265625 130.5716552734375 28.267791748046875Q97.96453857421875 50.39276123046875 76.55380249023438 83.67840576171875Q55.14306640625 116.96405029296875 47.6429443359375 161.42822265625L197.67864990234375 200.5712890625Q204.4287109375 175.428466796875 216.32159423828125 159.33920288085938Q228.2144775390625 143.24993896484375 242.73233032226562 134.19638061523438Q257.25018310546875 125.142822265625 273.285888671875 121.60711669921875Q289.32159423828125 118.0714111328125 305.285888671875 118.0714111328125Q344.0716552734375 118.0714111328125 372.4109802246094 134.5Q400.75030517578125 150.9285888671875 418.214599609375 179.857177734375Q435.67889404296875 208.7857666015625 444.1610412597656 248.1429443359375Q452.6431884765625 287.5001220703125 452.6431884765625 332.39300537109375Q453 344.5 369.5 286.5Q340 266 306.5 257.5Q273 249 243 249Q191.39300537109375 249 145.39300537109375 272.0Q99.39300537109375 295 70.89300537109375 340.0Q42.39300537109375 385 42.39300537109375 451Q42.39300537109375 489.96429443359375 55.375152587890625 529.9285888671875Q68.3572998046875 569.8928833007812 97.83944702148438 603.3750305175781Q127.32159423828125 636.857177734375 176.80374145507812 656.8750305175781Q226.285888671875 676.8928833007812 299.25018310546875 676.8928833007812Q402.000244140625 676.8928833007812 471.39312744140625 635.3928833007812Q540.7860107421875 593.8928833007812 576.714599609375 515.4285888671875Q612.6431884765625 436.96429443359375 612.6431884765625 327.03570556640625Q612.6431884765625 211.0714111328125 574.6967468261719 134.58926391601562Q536.7503051757812 58.10711669921875 467.357421875 21.089263916015625Q397.96453857421875 -15.9285888671875 303.17877197265625 -15.9285888671875ZM302.17877197265625 359.10711669921875Q331.2144775390625 359.10711669921875 355.6252136230469 372.0714111328125Q380.03594970703125 385.03570556640625 394.9288330078125 408.0Q409.82171630859375 430.96429443359375 409.82171630859375 461.89288330078125Q409.82171630859375 493.67864990234375 393.9823913574219 512.6786499023438Q378.14306640625 531.6786499023438 354.7144775390625 540.2679138183594Q331.285888671875 548.857177734375 308.0716552734375 548.857177734375Q286.10736083984375 548.857177734375 267.1609191894531 542.357177734375Q248.2144775390625 535.857177734375 234.26803588867188 523.357177734375Q220.32159423828125 510.857177734375 212.3572998046875 493.39288330078125Q204.39300537109375 475.9285888671875 204.39300537109375 454Q204.39300537109375 426 217.33944702148438 404.5178527832031Q230.285888671875 383.03570556640625 252.23233032226562 371.0714111328125Q274.17877197265625 359.10711669921875 302.17877197265625 359.10711669921875Z"/></svg></span>ninetynine</a>
     <span>ninetynine.love · © 2026</span>
   </footer>
 </div>
 
 <script>
 (() => {
+  // give each top bar its own Ninty, cloned from the big one
+  const nintyArt = document.querySelector('#meetNinty .nini-svg');
+  document.querySelectorAll('.nbar .spr-inner').forEach(n => {
+    const c = nintyArt.cloneNode(true);
+    c.removeAttribute('role'); c.removeAttribute('aria-label'); c.setAttribute('aria-hidden', 'true');
+    n.append(c);
+  });
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -641,6 +690,60 @@
   watch(meet);
   (async () => { let i = 0; for (;;) { await sleep(3600); await gate(meet); quote.classList.add('swap'); await sleep(260); i = (i + 1) % quotes.length; quote.textContent = quotes[i][0]; setMood(meet, quotes[i][1]); quote.classList.remove('swap'); } })();
 
+  // Ninty in the top bar: walks around his zone, hides at home, jumps out to scare you
+  function makeNinty(bar) {
+    const spr = bar.querySelector('.sprite'), inner = spr.querySelector('.spr-inner'),
+          st = bar.querySelector('small'), boo = bar.querySelector('.boo-txt');
+    const STATUS = { happy: 'online · judging you lovingly', care: 'here for you fr', smirk: 'up to no good', judge: 'judging. silently',
+      shock: "hiding. don't look at me", sad: 'sulking a bit', angry: 'fuming', love: 'heart eyes, sorry', hyped: "LET'S GOOO",
+      hide: '…', boo: 'BOO', home: 'online · judging you lovingly' };
+    const HOMEY = ['home', 'smirk', 'shock', 'sad', 'hide'];
+    const DEEP = ['shock', 'sad', 'hide'];
+    let cur = 'home';
+    const out = () => bar.clientWidth - 56;
+    const home = bar.querySelector('.home');
+    // everything is placed relative to the home frame, measured live
+    const go = (a, x, y, clip, spd) => {
+      const hx = home.offsetLeft, hy = home.offsetTop, rim = hy + 18;
+      const atHome = HOMEY.includes(a);
+      const left = x === 18 ? hx + 2 : x, top = y + (hy - 14);
+      // at home, nothing below the rim line is ever drawn (the lip and frame hide that area anyway)
+      const cut = atHome ? rim - top : 400;
+      spr.style.setProperty('--spd', (spd || .55) + 's');
+      spr.dataset.act = a;
+      spr.style.left = left + 'px'; spr.style.top = top + 'px';
+      spr.style.clipPath = `polygon(-300% -300%, 400% -300%, 400% ${cut}px, -300% ${cut}px)`;
+    };
+    return async function act(a) {
+      const mood = { hide: 'shock', home: 'happy', boo: 'angry' }[a] || a;
+      st.textContent = STATUS[a] || STATUS.happy;
+      // pass through the doorway when going in or out of the house
+      const goingHome = HOMEY.includes(a), isHome = HOMEY.includes(cur);
+      if (goingHome && !isHome) { setMood(inner, a === 'hide' ? 'shock' : 'happy'); go('home', 18, 10, 0, a === 'shock' ? .2 : .5); await sleep(a === 'shock' ? 200 : 520); }
+      if (!goingHome && DEEP.includes(cur)) { go('home', 18, 10, 0, .25); await sleep(260); }
+      if (a !== 'boo') setMood(inner, mood);
+      switch (a) {
+        case 'home':  go(a, 18, 10); break;
+        case 'smirk': go(a, 18, 8); break;
+        case 'shock': go(a, 18, 18, 0, .15); break;
+        case 'sad':   go(a, 18, 15, 0, 1.4); break;
+        case 'hide':  go(a, 18, 38, 20, .3); break;
+        case 'angry': go(a, out() - 34, 10, 0, .3); break;
+        case 'love': case 'hyped': go(a, out() - 18, 8); break;
+        case 'boo':
+          go('hide', 18, 38, 0, .01); await sleep(30);
+          setMood(inner, 'angry'); go('home', 18, 10, 0, .1); await sleep(100);
+          go('boo', 30, 6, 0, .14); boo.classList.add('on');
+          await sleep(1150);
+          boo.classList.remove('on'); setMood(inner, 'smirk'); go('smirk', 18, 8, 0, .4); st.textContent = 'lol got you';
+          cur = 'smirk'; return;
+        default:      go(a, out(), 10);
+      }
+      cur = a;
+    };
+  }
+  document.querySelectorAll('.nbar').forEach(bar => { bar.closest('.phone')._ninty = makeNinty(bar); });
+
   // chat engine
   const el = (cls, text) => { const d = document.createElement('div'); d.className = cls; if (text) d.textContent = text; return d; };
   async function typeInto(field, text, scene) {
@@ -656,6 +759,7 @@
       for (const s of script) {
         await gate(scene);
         if (s.sys) { await sleep(s.pause || 700); body.append(el('sys', s.sys)); await sleep(1300); continue; }
+        if (s.act) { if (scene._ninty) await scene._ninty(s.act); await sleep(s.wait || 600); continue; }
         if (s.card) { await s.card(body); continue; }
         const cls = 'msg ' + s.from + (s.big ? ' big' : '');
         if (s.from === 'me') {
@@ -668,7 +772,7 @@
           body.append(t);
           await sleep(600 + s.text.length * 15);
           t.remove();
-          if (s.from === 'ai') { const av = scene.querySelector('.bar-top .av-nini'); if (av) setMood(av, s.mood || 'happy'); }
+          if (s.from === 'ai' && scene._ninty) scene._ninty(s.mood || 'happy');
           body.append(el(cls, s.text));
         }
         await sleep(s.hold || 650);
@@ -690,10 +794,12 @@
 
   const hero = document.querySelector('.hero .phone');
   runChat(hero, document.getElementById('heroChat'), document.getElementById('heroField'), [
+    { act: 'hide', wait: 1400 },
+    { act: 'boo', wait: 500 },
     { from: 'ai', text: 'ok be honest. when did you last flirt with someone irl', mood: 'smirk' },
     { from: 'me', text: 'define flirt' },
     { from: 'ai', text: 'oh no 💀', hold: 900, mood: 'shock' },
-    { from: 'ai', text: 'ok new question. best part of your week', pause: 100 },
+    { from: 'ai', text: 'ok new question. best part of your week', pause: 100, mood: 'happy' },
     { from: 'me', text: 'burnt my pasta and still ate it' },
     { from: 'ai', text: 'a survivor. a warrior. a terrible cook', mood: 'judge' },
     { from: 'me', text: 'wow ok' },
@@ -705,6 +811,7 @@
 
   const one = document.getElementById('chatOne');
   runChat(one.closest('.phone'), one, document.getElementById('oneField'), [
+    { act: 'home', wait: 300 },
     { from: 'ai', text: 'saturday plans?', mood: 'happy' },
     { from: 'me', text: 'nothing lol. maybe the flea market' },
     { from: 'me', text: 'i have a plant problem', pause: 200 },
@@ -793,5 +900,5 @@
   })();
 })();
 </script>
-
-</body></html>
+</body>
+</html>
